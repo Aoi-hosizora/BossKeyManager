@@ -4,6 +4,8 @@ ipch/
 Win32/
 GeneratedFiles/
 
+cmdow/
+
 *.opensdf
 *.sdf
 *.suo

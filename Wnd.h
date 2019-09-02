@@ -12,8 +12,8 @@ public:
 	int pid;
 	string image;
 
-	Wnd(HWND hnd, string caption, int pid)
-		: hnd(hnd), caption(caption), pid(pid) {}
+	Wnd(HWND hnd, string caption, int pid, string image)
+		: hnd(hnd), caption(caption), pid(pid), image(image) {}
 };
 
 #endif // WND_H

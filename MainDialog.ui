@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>274</width>
+    <width>316</width>
     <height>427</height>
    </rect>
   </property>
@@ -28,7 +28,7 @@
          <string>A&amp;ctive Windows:</string>
         </property>
         <property name="buddy">
-         <cstring>listView</cstring>
+         <cstring>listWidget</cstring>
         </property>
        </widget>
       </item>
@@ -55,7 +55,7 @@
      </layout>
     </item>
     <item>
-     <widget class="QListView" name="listView"/>
+     <widget class="QListWidget" name="listWidget"/>
     </item>
     <item>
      <widget class="QGroupBox" name="groupBox">

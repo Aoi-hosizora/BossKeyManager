@@ -15,8 +15,14 @@ public:
 	MainDialog(QWidget *parent = nullptr);
 	~MainDialog();
 
+private slots:
+	void on_button_Refresh_clicked();
+	void on_listWidget_currentTextChanged(QString);
+
 private:
 	Ui::MainDialogClass ui;
+	void loadWindowsList();
+
 };
 
 #endif // MAINDIALOG_H

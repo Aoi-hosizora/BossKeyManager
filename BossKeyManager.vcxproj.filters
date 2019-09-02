@@ -73,5 +73,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.md" />
+    <None Include=".gitignore" />
   </ItemGroup>
 </Project>
