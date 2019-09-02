@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>277</width>
-    <height>436</height>
+    <width>274</width>
+    <height>427</height>
    </rect>
   </property>
   <property name="font">
@@ -28,7 +28,7 @@
          <string>A&amp;ctive Windows:</string>
         </property>
         <property name="buddy">
-         <cstring>listView_Windows</cstring>
+         <cstring>listView</cstring>
         </property>
        </widget>
       </item>
@@ -55,7 +55,7 @@
      </layout>
     </item>
     <item>
-     <widget class="QListView" name="listView_Windows"/>
+     <widget class="QListView" name="listView"/>
     </item>
     <item>
      <widget class="QGroupBox" name="groupBox">
@@ -63,6 +63,9 @@
        <string>BossKey Setting</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
+       <property name="leftMargin">
+        <number>9</number>
+       </property>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_4">
          <item>
@@ -102,13 +105,6 @@
         </layout>
        </item>
        <item>
-        <widget class="Line" name="line">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-        </widget>
-       </item>
-       <item>
         <layout class="QHBoxLayout" name="horizontalLayout_5">
          <item>
           <widget class="QLabel" name="label_3">
@@ -116,7 +112,7 @@
             <string>Hot&amp;Key:</string>
            </property>
            <property name="buddy">
-            <cstring>keySequenceEdit</cstring>
+            <cstring>hotKeyEdit</cstring>
            </property>
           </widget>
          </item>
@@ -134,9 +130,9 @@
           </spacer>
          </item>
          <item>
-          <widget class="HotKeyEdit" name="keySequenceEdit">
+          <widget class="HotKeyEdit" name="hotKeyEdit">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
@@ -252,7 +248,6 @@
  </customwidgets>
  <tabstops>
   <tabstop>button_Refresh</tabstop>
-  <tabstop>listView_Windows</tabstop>
   <tabstop>pushButton_Rename</tabstop>
   <tabstop>comboBox_Action</tabstop>
   <tabstop>pushButton_Delete</tabstop>
@@ -269,8 +264,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>222</x>
-     <y>417</y>
+     <x>263</x>
+     <y>416</y>
     </hint>
     <hint type="destinationlabel">
      <x>120</x>
