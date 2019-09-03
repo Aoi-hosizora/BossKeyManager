@@ -8,11 +8,11 @@ using namespace std;
 class Wnd {
 public:
 	HWND hnd;
-	string caption;
+	QString caption;
 	int pid;
-	string image;
+	QString image;
 
-	Wnd(HWND hnd, string caption, int pid, string image)
+	Wnd(HWND hnd, QString caption, int pid, QString image)
 		: hnd(hnd), caption(caption), pid(pid), image(image) {}
 };
 

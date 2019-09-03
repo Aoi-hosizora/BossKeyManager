@@ -22,6 +22,7 @@ private slots:
 private:
 	Ui::MainDialogClass ui;
 	void loadWindowsList();
+	void setEclipseLabel(QLabel *, QString, int);
 
 };
 

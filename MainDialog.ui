@@ -6,9 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>316</width>
-    <height>427</height>
+    <width>350</width>
+    <height>467</height>
    </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>350</width>
+    <height>0</height>
+   </size>
   </property>
   <property name="font">
    <font>
@@ -23,7 +29,7 @@
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
-       <widget class="QLabel" name="label">
+       <widget class="QLabel" name="label_Title">
         <property name="text">
          <string>A&amp;ctive Windows:</string>
         </property>
@@ -71,29 +77,22 @@
          <item>
           <widget class="QLabel" name="label_2">
            <property name="text">
-            <string>Window:</string>
+            <string>Caption:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="label_Window">
+          <widget class="QLabel" name="label_Caption">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
            <property name="text">
             <string>xxxxxx</string>
            </property>
           </widget>
-         </item>
-         <item>
-          <spacer name="horizontalSpacer_4">
-           <property name="orientation">
-            <enum>Qt::Horizontal</enum>
-           </property>
-           <property name="sizeHint" stdset="0">
-            <size>
-             <width>40</width>
-             <height>20</height>
-            </size>
-           </property>
-          </spacer>
          </item>
          <item>
           <widget class="QPushButton" name="pushButton_Rename">
@@ -103,6 +102,49 @@
           </widget>
          </item>
         </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_7">
+         <item>
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Process:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_Process">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>xxxxxx</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_Show">
+           <property name="font">
+            <font>
+             <pointsize>9</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Sho&amp;w</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="Line" name="line">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+        </widget>
        </item>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_5">
@@ -132,10 +174,22 @@
          <item>
           <widget class="HotKeyEdit" name="hotKeyEdit">
            <property name="sizePolicy">
-            <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
              <verstretch>0</verstretch>
             </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>130</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>130</width>
+             <height>16777215</height>
+            </size>
            </property>
           </widget>
          </item>
@@ -168,11 +222,44 @@
          </item>
          <item>
           <widget class="QComboBox" name="comboBox_Action">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>130</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>130</width>
+             <height>16777215</height>
+            </size>
+           </property>
            <property name="font">
             <font>
              <kerning>true</kerning>
             </font>
            </property>
+           <item>
+            <property name="text">
+             <string>No Action</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Hide StatusBar icon</string>
+            </property>
+           </item>
+           <item>
+            <property name="text">
+             <string>Hide to StatusBar</string>
+            </property>
+           </item>
           </widget>
          </item>
         </layout>
@@ -195,7 +282,7 @@
          <item>
           <widget class="QPushButton" name="pushButton_Add">
            <property name="text">
-            <string>&amp;Add</string>
+            <string>&amp;Setup</string>
            </property>
           </widget>
          </item>
@@ -249,13 +336,10 @@
  <tabstops>
   <tabstop>button_Refresh</tabstop>
   <tabstop>pushButton_Rename</tabstop>
-  <tabstop>comboBox_Action</tabstop>
   <tabstop>pushButton_Delete</tabstop>
   <tabstop>pushButton_Exit</tabstop>
  </tabstops>
- <resources>
-  <include location="maindialog.qrc"/>
- </resources>
+ <resources/>
  <connections>
   <connection>
    <sender>pushButton_Exit</sender>
