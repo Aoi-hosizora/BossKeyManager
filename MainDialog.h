@@ -20,7 +20,8 @@ private slots:
 	void on_pushButton_Refresh_clicked();
 	void on_pushButton_Show_clicked();
 	void on_pushButton_Rename_clicked();
-
+	void on_pushButton_Setup_clicked();
+	void on_pushButton_Delete_clicked();
 
 private:
 	Ui::MainDialogClass ui;

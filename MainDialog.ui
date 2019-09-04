@@ -251,21 +251,6 @@
              <kerning>true</kerning>
             </font>
            </property>
-           <item>
-            <property name="text">
-             <string>No Action</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Hide StatusBar icon</string>
-            </property>
-           </item>
-           <item>
-            <property name="text">
-             <string>Hide to StatusBar</string>
-            </property>
-           </item>
           </widget>
          </item>
         </layout>
@@ -286,7 +271,7 @@
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_Add">
+          <widget class="QPushButton" name="pushButton_Setup">
            <property name="text">
             <string>&amp;Setup</string>
            </property>
