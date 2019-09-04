@@ -119,4 +119,10 @@
       <Filter>References</Filter>
     </CustomBuild>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="readme.md" />
+    <None Include="BossKeyManager.pro" />
+    <None Include=".gitignore" />
+    <None Include="BossKeyManager.pri" />
+  </ItemGroup>
 </Project>

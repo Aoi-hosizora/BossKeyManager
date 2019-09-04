@@ -3,6 +3,7 @@ Release/
 ipch/
 Win32/
 GeneratedFiles/
+.vscode/
 
 cmdow/
 

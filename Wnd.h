@@ -21,13 +21,13 @@ public:
 	int pid;
 	QString image;
 
-	WndBKType typeofwnd;
+	WndBKType actionhk;
 	QKeySequence hotkey;
 
 
 	Wnd(HWND hnd, QString caption, int pid, QString image) 
 		: hnd(hnd), caption(caption), pid(pid), image(image),
-		typeofwnd(WndBKType::NO_ACTION), hotkey(QKeySequence::NoMatch) {}
+		actionhk(WndBKType::NO_ACTION), hotkey(QKeySequence::NoMatch) {}
 
 	QString toQString() {
 		QString h = QString("0x%1").arg(QString("%1").arg((int) hnd, 6, 16, QLatin1Char('0')).toUpper());

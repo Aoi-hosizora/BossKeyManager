@@ -30,6 +30,7 @@ private:
 	void setEclipseLabel(QLabel *, QString, int);
 	bool setupHotKey(QKeySequence);
 	void unSetupHotKey(QKeySequence);
+	void unSetupAllHotKey();
 
 };
 
