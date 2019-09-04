@@ -70,6 +70,9 @@
     <ClInclude Include="Wnd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Global.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.md" />

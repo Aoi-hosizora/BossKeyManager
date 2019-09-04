@@ -113,6 +113,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_MainDialog.h" />
+    <ClInclude Include="Global.hpp" />
     <ClInclude Include="Utils.hpp" />
     <ClInclude Include="Wnd.h" />
     <CustomBuild Include="HotKeyEdit.h">

@@ -5,8 +5,8 @@
 #pragma execution_character_set("utf-8")  
 #endif
 
-#include <QtWidgets/QMainWindow>
 #include "ui_MainDialog.h"
+#include <QtWidgets/QMainWindow>
 
 class MainDialog : public QMainWindow {
 	Q_OBJECT
@@ -16,11 +16,15 @@ public:
 	~MainDialog();
 
 private slots:
-	void on_button_Refresh_clicked();
-	void on_listWidget_currentTextChanged(QString);
+	void on_listWidget_currentRowChanged(int);
+	void on_pushButton_Refresh_clicked();
+	void on_pushButton_Show_clicked();
+	void on_pushButton_Rename_clicked();
+
 
 private:
 	Ui::MainDialogClass ui;
+	void onLoaded();
 	void loadWindowsList();
 	void setEclipseLabel(QLabel *, QString, int);
 

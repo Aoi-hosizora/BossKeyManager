@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>350</width>
-    <height>467</height>
+    <height>463</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -52,7 +52,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="button_Refresh">
+       <widget class="QPushButton" name="pushButton_Refresh">
         <property name="text">
          <string>&amp;Refresh</string>
         </property>
@@ -72,37 +72,12 @@
        <property name="leftMargin">
         <number>9</number>
        </property>
-       <item>
-        <layout class="QHBoxLayout" name="horizontalLayout_4">
-         <item>
-          <widget class="QLabel" name="label_2">
-           <property name="text">
-            <string>Caption:</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QLabel" name="label_Caption">
-           <property name="sizePolicy">
-            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
-             <horstretch>0</horstretch>
-             <verstretch>0</verstretch>
-            </sizepolicy>
-           </property>
-           <property name="text">
-            <string>xxxxxx</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_Rename">
-           <property name="text">
-            <string>Re&amp;name</string>
-           </property>
-          </widget>
-         </item>
-        </layout>
-       </item>
+       <property name="topMargin">
+        <number>5</number>
+       </property>
+       <property name="bottomMargin">
+        <number>9</number>
+       </property>
        <item>
         <layout class="QHBoxLayout" name="horizontalLayout_7">
          <item>
@@ -134,6 +109,37 @@
            </property>
            <property name="text">
             <string>Sho&amp;w</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_4">
+         <item>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Caption:</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_Caption">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="text">
+            <string>xxxxxx</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_Rename">
+           <property name="text">
+            <string>Re&amp;name</string>
            </property>
           </widget>
          </item>
@@ -334,7 +340,7 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>button_Refresh</tabstop>
+  <tabstop>pushButton_Refresh</tabstop>
   <tabstop>pushButton_Rename</tabstop>
   <tabstop>pushButton_Delete</tabstop>
   <tabstop>pushButton_Exit</tabstop>
@@ -348,8 +354,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>263</x>
-     <y>416</y>
+     <x>339</x>
+     <y>452</y>
     </hint>
     <hint type="destinationlabel">
      <x>120</x>
