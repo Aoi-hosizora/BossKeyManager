@@ -1,142 +1,248 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
-      <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{2B34F75C-15D4-4F8C-B6C9-5DB99EAFC279}</ProjectGuid>
+    <RootNamespace>BossKeyManager</RootNamespace>
     <Keyword>Qt4VSv1.0</Keyword>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <OutputDirectory>Win32\Release\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
     <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>release\</IntermediateDirectory>
+    <PrimaryOutput>BossKeyManager</PrimaryOutput>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <OutputDirectory>Win32\Release\</OutputDirectory>
+    <ATLMinimizesCRunTimeLibraryUsage>false</ATLMinimizesCRunTimeLibraryUsage>
+    <CharacterSet>NotSet</CharacterSet>
+    <ConfigurationType>Application</ConfigurationType>
+    <IntermediateDirectory>debug\</IntermediateDirectory>
+    <PrimaryOutput>BossKeyManager</PrimaryOutput>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
-  <ImportGroup Label="ExtensionSettings">
+  <ImportGroup Label="ExtensionSettings" />
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
   </ImportGroup>
   <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Win32\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">BossKeyManager</TargetName>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</IgnoreImportLibrary>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Win32\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">BossKeyManager</TargetName>
+    <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</IgnoreImportLibrary>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <Optimization>Disabled</Optimization>
-      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
-      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
-    </ClCompile>
-    <Link>
-      <SubSystem>Console</SubSystem>
-      <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
-      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>qtmaind.lib;Qt5Cored.lib;Qt5Guid.lib;Qt5Widgetsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-  </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName);$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <DebugInformationFormat>
-      </DebugInformationFormat>
+      <AdditionalIncludeDirectories>.;GeneratedFiles;.;GeneratedFiles\Release;qxtglobalshortcut5\core;qxtglobalshortcut5\gui;$(QTDIR)\include;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui\5.5.1;$(QTDIR)\include\QtGui\5.5.1\QtGui;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtCore;GeneratedFiles\release;GeneratedFiles;$(QTDIR)\mkspecs\win32-msvc2010;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-w34100 -w34189 -w44996 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>release\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>release\</ObjectFileName>
+      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;WIN64;QT_DLL;QT_WIDGETS_LIB;BUILD_QXT_CORE;BUILD_QXT_GUI;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
-      <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
-      <AdditionalLibraryDirectories>$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(QTDIR)\lib\qtmain.lib;shell32.lib;E:/qt/qt5.5.1/5.5/msvc2010/lib\Qt5Core.lib;$(QTDIR)\lib\Qt5Widgets.lib;$(QTDIR)\lib\Qt5Gui.lib;$(QTDIR)\lib\Qt5Network.lib;$(QTDIR)\lib\Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;E:/qt/qt5.5.1/5.5/msvc2010/lib;$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalDependencies>qtmain.lib;Qt5Core.lib;Qt5Gui.lib;Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <LinkIncremental>false</LinkIncremental>
+      <OutputFile>$(OutDir)\BossKeyManager.exe</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
     </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;WIN64;QT_DLL;QT_WIDGETS_LIB;BUILD_QXT_CORE;BUILD_QXT_GUI;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>.;GeneratedFiles;.;GeneratedFiles\Release;qxtglobalshortcut5\core;qxtglobalshortcut5\gui;$(QTDIR)\include;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui\5.5.1;$(QTDIR)\include\QtGui\5.5.1\QtGui;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtNetwork;$(QTDIR)\include\QtCore;GeneratedFiles\debug;GeneratedFiles;$(QTDIR)\mkspecs\win32-msvc2010;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-w34100 -w34189 -w44996 %(AdditionalOptions)</AdditionalOptions>
+      <AssemblerListingLocation>debug\</AssemblerListingLocation>
+      <BrowseInformation>false</BrowseInformation>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <ObjectFileName>debug\</ObjectFileName>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;WIN64;QT_DLL;QT_WIDGETS_LIB;BUILD_QXT_CORE;BUILD_QXT_GUI;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessToFile>false</PreprocessToFile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>$(QTDIR)\lib\qtmaind.lib;shell32.lib;E:/qt/qt5.5.1/5.5/msvc2010/lib\Qt5Cored.lib;$(QTDIR)\lib\Qt5Widgetsd.lib;$(QTDIR)\lib\Qt5Guid.lib;$(QTDIR)\lib\Qt5Networkd.lib;$(QTDIR)\lib\Qt5Cored.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(QTDIR)\lib;E:/qt/qt5.5.1/5.5/msvc2010/lib;$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
+      <DataExecutionPrevention>true</DataExecutionPrevention>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <IgnoreImportLibrary>true</IgnoreImportLibrary>
+      <OutputFile>$(OutDir)\BossKeyManager.exe</OutputFile>
+      <RandomizedBaseAddress>true</RandomizedBaseAddress>
+      <SubSystem>Windows</SubSystem>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </Link>
+    <Midl>
+      <DefaultCharType>Unsigned</DefaultCharType>
+      <EnableErrorChecks>None</EnableErrorChecks>
+      <WarningLevel>0</WarningLevel>
+    </Midl>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;WIN64;QT_DLL;QT_WIDGETS_LIB;BUILD_QXT_CORE;BUILD_QXT_GUI;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GeneratedFiles\Debug\moc_HotKeyEdit.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_MainDialog.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_HotKeyEdit.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_MainDialog.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="MainDialog.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="qxtglobalshortcut5\core\qxtglobal.cpp" />
+    <ClCompile Include="qxtglobalshortcut5\gui\qxtglobalshortcut.cpp" />
+    <ClCompile Include="qxtglobalshortcut5\gui\qxtglobalshortcut_win.cpp" />
+    <ClCompile Include="qxtglobalshortcut5\gui\qxtwindowsystem.cpp" />
+    <ClCompile Include="qxtglobalshortcut5\gui\qxtwindowsystem_win.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="MainDialog.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing MainDialog.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-IE:\Program Files (x86)\Visual Leak Detector\include"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath);$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing MainDialog.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-IE:\Program Files (x86)\Visual Leak Detector\include"</Command>
+    <ClInclude Include="Global.hpp" />
+    <CustomBuild Include="HotKeyEdit.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">HotKeyEdit.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+if errorlevel 1 goto VCEnd
+$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_WIDGETS_LIB -DBUILD_QXT_CORE -DBUILD_QXT_GUI -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IE:/qt/qt5.5.1/5.5/msvc2010/mkspecs/win32-msvc2010 -IF:/?????/BossKeyManager -IF:/?????/BossKeyManager/GeneratedFiles -IF:/?????/BossKeyManager -IF:/?????/BossKeyManager/GeneratedFiles/Release -IF:/?????/BossKeyManager/qxtglobalshortcut5/core -IF:/?????/BossKeyManager/qxtglobalshortcut5/gui -IE:/qt/qt5.5.1/5.5/msvc2010/include -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtWidgets -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtGui/5.5.1 -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtGui/5.5.1/QtGui -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtGui -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtANGLE -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtNetwork -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtCore HotKeyEdit.h -o GeneratedFiles\release\moc_HotKeyEdit.cpp
+if errorlevel 1 goto VCEnd
+endlocal</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC HotKeyEdit.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">GeneratedFiles\release\moc_HotKeyEdit.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">HotKeyEdit.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+if errorlevel 1 goto VCEnd
+$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_WIDGETS_LIB -DBUILD_QXT_CORE -DBUILD_QXT_GUI -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IE:/qt/qt5.5.1/5.5/msvc2010/mkspecs/win32-msvc2010 -IF:/?????/BossKeyManager -IF:/?????/BossKeyManager/GeneratedFiles -IF:/?????/BossKeyManager -IF:/?????/BossKeyManager/GeneratedFiles/Release -IF:/?????/BossKeyManager/qxtglobalshortcut5/core -IF:/?????/BossKeyManager/qxtglobalshortcut5/gui -IE:/qt/qt5.5.1/5.5/msvc2010/include -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtWidgets -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtGui/5.5.1 -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtGui/5.5.1/QtGui -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtGui -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtANGLE -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtNetwork -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtCore HotKeyEdit.h -o GeneratedFiles\debug\moc_HotKeyEdit.cpp
+if errorlevel 1 goto VCEnd
+endlocal</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC HotKeyEdit.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">GeneratedFiles\debug\moc_HotKeyEdit.cpp;%(Outputs)</Outputs>
     </CustomBuild>
+    <CustomBuild Include="MainDialog.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MainDialog.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+if errorlevel 1 goto VCEnd
+$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_WIDGETS_LIB -DBUILD_QXT_CORE -DBUILD_QXT_GUI -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IE:/qt/qt5.5.1/5.5/msvc2010/mkspecs/win32-msvc2010 -IF:/?????/BossKeyManager -IF:/?????/BossKeyManager/GeneratedFiles -IF:/?????/BossKeyManager -IF:/?????/BossKeyManager/GeneratedFiles/Release -IF:/?????/BossKeyManager/qxtglobalshortcut5/core -IF:/?????/BossKeyManager/qxtglobalshortcut5/gui -IE:/qt/qt5.5.1/5.5/msvc2010/include -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtWidgets -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtGui/5.5.1 -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtGui/5.5.1/QtGui -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtGui -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtANGLE -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtNetwork -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtCore MainDialog.h -o GeneratedFiles\release\moc_MainDialog.cpp
+if errorlevel 1 goto VCEnd
+endlocal</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC MainDialog.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">GeneratedFiles\release\moc_MainDialog.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MainDialog.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+if errorlevel 1 goto VCEnd
+$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_WIDGETS_LIB -DBUILD_QXT_CORE -DBUILD_QXT_GUI -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IE:/qt/qt5.5.1/5.5/msvc2010/mkspecs/win32-msvc2010 -IF:/?????/BossKeyManager -IF:/?????/BossKeyManager/GeneratedFiles -IF:/?????/BossKeyManager -IF:/?????/BossKeyManager/GeneratedFiles/Release -IF:/?????/BossKeyManager/qxtglobalshortcut5/core -IF:/?????/BossKeyManager/qxtglobalshortcut5/gui -IE:/qt/qt5.5.1/5.5/msvc2010/include -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtWidgets -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtGui/5.5.1 -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtGui/5.5.1/QtGui -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtGui -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtANGLE -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtNetwork -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtCore MainDialog.h -o GeneratedFiles\debug\moc_MainDialog.cpp
+if errorlevel 1 goto VCEnd
+endlocal</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC MainDialog.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">GeneratedFiles\debug\moc_MainDialog.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="Utils.hpp" />
+    <ClInclude Include="Wnd.h" />
+    <ClInclude Include="qxtglobalshortcut5\core\qxtglobal.h" />
+    <CustomBuild Include="qxtglobalshortcut5\gui\qxtglobalshortcut.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">qxtglobalshortcut5\gui\qxtglobalshortcut.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+if errorlevel 1 goto VCEnd
+$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_WIDGETS_LIB -DBUILD_QXT_CORE -DBUILD_QXT_GUI -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IE:/qt/qt5.5.1/5.5/msvc2010/mkspecs/win32-msvc2010 -IF:/?????/BossKeyManager -IF:/?????/BossKeyManager/GeneratedFiles -IF:/?????/BossKeyManager -IF:/?????/BossKeyManager/GeneratedFiles/Release -IF:/?????/BossKeyManager/qxtglobalshortcut5/core -IF:/?????/BossKeyManager/qxtglobalshortcut5/gui -IE:/qt/qt5.5.1/5.5/msvc2010/include -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtWidgets -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtGui/5.5.1 -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtGui/5.5.1/QtGui -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtGui -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtANGLE -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtNetwork -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtCore qxtglobalshortcut5\gui\qxtglobalshortcut.h -o GeneratedFiles\release\moc_qxtglobalshortcut.cpp
+if errorlevel 1 goto VCEnd
+endlocal</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MOC qxtglobalshortcut5/gui/qxtglobalshortcut.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">GeneratedFiles\release\moc_qxtglobalshortcut.cpp;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">qxtglobalshortcut5\gui\qxtglobalshortcut.h;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+if errorlevel 1 goto VCEnd
+$(QTDIR)\bin\moc.exe  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_WIDGETS_LIB -DBUILD_QXT_CORE -DBUILD_QXT_GUI -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -D_MSC_VER=1600 -D_WIN32 -IE:/qt/qt5.5.1/5.5/msvc2010/mkspecs/win32-msvc2010 -IF:/?????/BossKeyManager -IF:/?????/BossKeyManager/GeneratedFiles -IF:/?????/BossKeyManager -IF:/?????/BossKeyManager/GeneratedFiles/Release -IF:/?????/BossKeyManager/qxtglobalshortcut5/core -IF:/?????/BossKeyManager/qxtglobalshortcut5/gui -IE:/qt/qt5.5.1/5.5/msvc2010/include -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtWidgets -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtGui/5.5.1 -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtGui/5.5.1/QtGui -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtGui -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtANGLE -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtNetwork -IE:/qt/qt5.5.1/5.5/msvc2010/include/QtCore qxtglobalshortcut5\gui\qxtglobalshortcut.h -o GeneratedFiles\debug\moc_qxtglobalshortcut.cpp
+if errorlevel 1 goto VCEnd
+endlocal</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC qxtglobalshortcut5/gui/qxtglobalshortcut.h</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">GeneratedFiles\debug\moc_qxtglobalshortcut.cpp;%(Outputs)</Outputs>
+    </CustomBuild>
+    <ClInclude Include="qxtglobalshortcut5\gui\qxtglobalshortcut_p.h" />
+    <ClInclude Include="qxtglobalshortcut5\gui\qxtwindowsystem.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GeneratedFiles\debug\moc_HotKeyEdit.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\release\moc_HotKeyEdit.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\debug\moc_MainDialog.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\release\moc_MainDialog.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\debug\moc_qxtglobalshortcut.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\release\moc_qxtglobalshortcut.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClInclude Include="GeneratedFiles\ui_MainDialog.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="MainDialog.ui">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Uic%27ing %(Identity)...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Uic%27ing %(Identity)...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">MainDialog.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">setlocal
+if errorlevel 1 goto VCEnd
+$(QTDIR)\bin\uic.exe MainDialog.ui -o GeneratedFiles\ui_MainDialog.h
+if errorlevel 1 goto VCEnd
+endlocal</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">UIC MainDialog.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">GeneratedFiles\ui_MainDialog.h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MainDialog.ui;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">setlocal
+if errorlevel 1 goto VCEnd
+$(QTDIR)\bin\uic.exe MainDialog.ui -o GeneratedFiles\ui_MainDialog.h
+if errorlevel 1 goto VCEnd
+endlocal</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">UIC MainDialog.ui</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">GeneratedFiles\ui_MainDialog.h;%(Outputs)</Outputs>
     </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="GeneratedFiles\ui_MainDialog.h" />
-    <ClInclude Include="Global.hpp" />
-    <ClInclude Include="Utils.hpp" />
-    <ClInclude Include="Wnd.h" />
-    <CustomBuild Include="HotKeyEdit.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing HotKeyEdit.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-IE:\Program Files (x86)\Visual Leak Detector\include"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing HotKeyEdit.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_WIDGETS_LIB "-I.\GeneratedFiles" "-I." "-I$(QTDIR)\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-I$(QTDIR)\include\QtCore" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtWidgets" "-IE:\Program Files (x86)\Visual Leak Detector\include"</Command>
-    </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include=".gitignore" />
-    <None Include="readme.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
-  <ProjectExtensions>
-    <VisualStudio>
-      <UserProperties UicDir=".\GeneratedFiles" MocDir=".\GeneratedFiles\$(ConfigurationName)" MocOptions="" RccDir=".\GeneratedFiles" lupdateOnBuild="0" lupdateOptions="" lreleaseOptions="" Qt5Version_x0020_Win32="5.5.1" />
-    </VisualStudio>
-  </ProjectExtensions>
+  <ImportGroup Label="ExtensionTargets" />
 </Project>

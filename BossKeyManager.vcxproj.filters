@@ -1,81 +1,122 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;cxx;c;def</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h</Extensions>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
     </Filter>
     <Filter Include="Form Files">
       <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
       <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
     </Filter>
     <Filter Include="Generated Files">
       <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
-      <Extensions>moc;h;cpp</Extensions>
-      <SourceControlFiles>False</SourceControlFiles>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
     </Filter>
-    <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{afd6f8d7-bd9a-463a-a1e8-71759b26b283}</UniqueIdentifier>
-      <Extensions>cpp;moc</Extensions>
-      <SourceControlFiles>False</SourceControlFiles>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
     </Filter>
-    <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{b652f669-4820-4a90-be79-29ec5b81cd65}</UniqueIdentifier>
-      <Extensions>cpp;moc</Extensions>
-      <SourceControlFiles>False</SourceControlFiles>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="References">
+      <UniqueIdentifier>{1bf89617-0408-469f-8484-850819f0c6ac}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_MainDialog.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_MainDialog.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="MainDialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_HotKeyEdit.cpp">
-      <Filter>Generated Files\Debug</Filter>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_HotKeyEdit.cpp">
-      <Filter>Generated Files\Release</Filter>
+    <ClCompile Include="qxtglobalshortcut5\core\qxtglobal.cpp">
+      <Filter>References</Filter>
+    </ClCompile>
+    <ClCompile Include="qxtglobalshortcut5\gui\qxtwindowsystem_win.cpp">
+      <Filter>References</Filter>
+    </ClCompile>
+    <ClCompile Include="qxtglobalshortcut5\gui\qxtglobalshortcut.cpp">
+      <Filter>References</Filter>
+    </ClCompile>
+    <ClCompile Include="qxtglobalshortcut5\gui\qxtglobalshortcut_win.cpp">
+      <Filter>References</Filter>
+    </ClCompile>
+    <ClCompile Include="qxtglobalshortcut5\gui\qxtwindowsystem.cpp">
+      <Filter>References</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="MainDialog.h">
+    <ClInclude Include="Global.hpp">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="MainDialog.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
+    </ClInclude>
     <CustomBuild Include="HotKeyEdit.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="GeneratedFiles\ui_MainDialog.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
+    <CustomBuild Include="MainDialog.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <ClInclude Include="Utils.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Wnd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Global.hpp">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="qxtglobalshortcut5\core\qxtglobal.h">
+      <Filter>References</Filter>
+    </ClInclude>
+    <ClInclude Include="qxtglobalshortcut5\gui\qxtwindowsystem.h">
+      <Filter>References</Filter>
+    </ClInclude>
+    <ClInclude Include="qxtglobalshortcut5\gui\qxtglobalshortcut_p.h">
+      <Filter>References</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="readme.md" />
-    <None Include=".gitignore" />
+    <ClCompile Include="GeneratedFiles\debug\moc_HotKeyEdit.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\release\moc_HotKeyEdit.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\debug\moc_MainDialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\release\moc_MainDialog.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\debug\moc_qxtglobalshortcut.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\release\moc_qxtglobalshortcut.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClInclude Include="GeneratedFiles\ui_MainDialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="MainDialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="qxtglobalshortcut5\gui\qxtglobalshortcut.h">
+      <Filter>References</Filter>
+    </CustomBuild>
   </ItemGroup>
 </Project>
