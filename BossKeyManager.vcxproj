@@ -79,7 +79,7 @@
       <LinkIncremental>false</LinkIncremental>
       <OutputFile>$(OutDir)\BossKeyManager.exe</OutputFile>
       <RandomizedBaseAddress>true</RandomizedBaseAddress>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <SuppressStartupBanner>true</SuppressStartupBanner>
     </Link>
     <Midl>

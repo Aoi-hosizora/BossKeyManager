@@ -16,10 +16,13 @@
 + Check the window active when action
 	+ `wnd.needActive && wnd.hnd != GetForegroundWindow()`
 
+### Execute
++ Build by `windeployqt`
++ Visit [Release](https://github.com/Aoi-hosizora/BossKeyManager/releases) to download zip file, **DO NOT delete the dll files**.
+
 ### Screenshot
 
-![Screenshot](./assets/Screenshot.jpg)
-
+![Screenshot](./assets/Screenshot.jpg) 
 ![Screenshot2](./assets/Screenshot2.jpg)
 
 ### References

@@ -5,6 +5,9 @@ Win32/
 GeneratedFiles/
 .vscode/
 
+build/
+build.zip
+
 cmdow/
 
 *.opensdf

@@ -72,7 +72,7 @@ void MainDialog::on_pushButton_Refresh_clicked() {
 	// 判断是否有被隐藏的窗口
 	bool ok = true;
 	foreach (Wnd wnd, Global::WindowsList) {
-		if (!IsWindowVisible(wnd.hnd))
+		if (IsWindow(wnd.hnd) && !IsWindowVisible(wnd.hnd))
 			ok = false;
 	}
 	if (!ok) {
@@ -155,7 +155,7 @@ void MainDialog::on_pushButton_Setup_clicked() {
 // 删除状态
 void MainDialog::on_pushButton_Delete_clicked() {
 	// 删除状态解除窗口隐藏
-	if (!IsWindowVisible(Global::CurrWnd->hnd)) {
+	if (IsWindow(Global::CurrWnd->hnd) && !IsWindowVisible(Global::CurrWnd->hnd)) {
 		QMessageBox::StandardButton result = QMessageBox::information(this, "Refresh", 
 			QString("%1\n%2")
 				.arg(tr("This window is hidden by the bosskey. \n"))
@@ -189,7 +189,7 @@ void MainDialog::on_pushButton_Delete_clicked() {
 void MainDialog::on_pushButton_ShowAllWindowsHidden_clicked() {
 	int cnt = 0;
 	foreach (Wnd wnd, Global::WindowsList) {
-		if (!IsWindowVisible(wnd.hnd)) {
+		if (IsWindow(wnd.hnd) && !IsWindowVisible(wnd.hnd)) {
 			cnt++;
 			Utils::UnHideWindow(wnd.hnd);
 		}
