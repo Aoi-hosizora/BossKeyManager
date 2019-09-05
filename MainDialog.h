@@ -22,6 +22,8 @@ private slots:
 	void on_pushButton_Rename_clicked();
 	void on_pushButton_Setup_clicked();
 	void on_pushButton_Delete_clicked();
+	void on_pushButton_ShowAllWindowsHidden_clicked();
+	void closeEvent(QCloseEvent *) override;
 
 private:
 	Ui::MainDialogClass ui;

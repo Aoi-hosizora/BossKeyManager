@@ -137,6 +137,11 @@ public:
 		ShowWindowAsync(hwnd, SW_MINIMIZE);
 	}
 
+	// 还原窗口
+	static void RestoreWindow(HWND hwnd) {
+		ShowWindowAsync(hwnd, SW_RESTORE);
+	}
+
 	// 隐藏窗口 状态栏不可见
 	static void HideWindow(HWND hwnd) {
 		ShowWindowAsync(hwnd, SW_HIDE);

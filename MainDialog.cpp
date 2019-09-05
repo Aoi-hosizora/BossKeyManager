@@ -6,6 +6,8 @@
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QInputDialog>
 #include <QtWidgets/QKeySequenceEdit>
+#include <QtWidgets/QCheckBox>
+#include <QCloseEvent>
 #include "qxtglobalshortcut.h"
 
 using namespace std;
@@ -58,6 +60,7 @@ void MainDialog::on_listWidget_currentRowChanged(int idx) {
 		else
 			ui.comboBox_Action->setCurrentIndex(0);
 		ui.hotKeyEdit->setKeySequence(Global::CurrWnd->hotkey);
+		ui.checkBox_ActiveToHide->setChecked(Global::CurrWnd->needActive);		
 	}
 
 	ui.groupBox->setEnabled(idx != -1);
@@ -66,6 +69,25 @@ void MainDialog::on_listWidget_currentRowChanged(int idx) {
 
 // 刷新
 void MainDialog::on_pushButton_Refresh_clicked() {
+	// 判断是否有被隐藏的窗口
+	bool ok = true;
+	foreach (Wnd wnd, Global::WindowsList) {
+		if (!IsWindowVisible(wnd.hnd))
+			ok = false;
+	}
+	if (!ok) {
+		QMessageBox::StandardButton result = QMessageBox::information(this, "Refresh", 
+			QString("%1\n%2")
+				.arg(tr("There are some windows hidden by the bosskey. \n"))
+				.arg(tr("You should show them to refresh the list.")), 
+			QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+		// 不刷新
+		if (result == QMessageBox::No) return;
+		else {
+			// 显示后刷新
+			on_pushButton_ShowAllWindowsHidden_clicked();
+		}
+	}
 	loadWindowsList();
 }
 
@@ -119,7 +141,9 @@ void MainDialog::on_pushButton_Setup_clicked() {
 			Global::CurrWnd->actionhk = WndBKType::SHOW_STATUSBAR_ICON;
 		else if (combo == Global::HIDE_STATUSBAR_ICON)
 			Global::CurrWnd->actionhk = WndBKType::HIDE_STATUSBAR_ICON;
+		Global::CurrWnd->needActive = ui.checkBox_ActiveToHide->isChecked();
 	}
+
 	QListWidgetItem *curr = ui.listWidget->selectedItems().at(0);
 	QFont b = curr->font();
 	b.setBold(combo != Global::NO_ACTION);
@@ -130,12 +154,28 @@ void MainDialog::on_pushButton_Setup_clicked() {
 
 // 删除状态
 void MainDialog::on_pushButton_Delete_clicked() {
+	// 删除状态解除窗口隐藏
+	if (!IsWindowVisible(Global::CurrWnd->hnd)) {
+		QMessageBox::StandardButton result = QMessageBox::information(this, "Refresh", 
+			QString("%1\n%2")
+				.arg(tr("This window is hidden by the bosskey. \n"))
+				.arg(tr("Before delete the setting, you should show it.")), 
+			QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+		// 不刷新
+		if (result == QMessageBox::No) return;
+		else {
+			// 显示后刷新
+			on_pushButton_ShowAllWindowsHidden_clicked();
+		}
+	}
+
 	Global::CurrWnd->actionhk = WndBKType::NO_ACTION;
 	ui.comboBox_Action->setCurrentIndex(0);
 
 	unSetupHotKey(Global::CurrWnd->hotkey);
 	Global::CurrWnd->hotkey = QKeySequence::NoMatch;
 	ui.hotKeyEdit->setKeySequence(QKeySequence::NoMatch);
+	Global::CurrWnd->needActive = false;
 
 	QListWidgetItem *curr = ui.listWidget->selectedItems().at(0);
 	QFont b = curr->font();
@@ -143,6 +183,43 @@ void MainDialog::on_pushButton_Delete_clicked() {
 	curr->setFont(b);
 
 	on_listWidget_currentRowChanged(ui.listWidget->currentRow());
+}
+
+// 显示所有隐藏
+void MainDialog::on_pushButton_ShowAllWindowsHidden_clicked() {
+	int cnt = 0;
+	foreach (Wnd wnd, Global::WindowsList) {
+		if (!IsWindowVisible(wnd.hnd)) {
+			cnt++;
+			Utils::UnHideWindow(wnd.hnd);
+		}
+	}
+	if (cnt == 0)
+		QMessageBox::information(this, "Show", 
+			"There is no window hidden.");
+	else
+		QMessageBox::information(this, "Show", 
+			(cnt == 1) ? "1 window shown finished" : QString("%1%2").arg(cnt).arg(" windows shown finished"));
+}
+
+// 窗口关闭
+void MainDialog::closeEvent(QCloseEvent *e) {
+	// 判断是否有被隐藏的窗口
+	bool ok = true;
+	foreach (Wnd wnd, Global::WindowsList) {
+		if (!IsWindowVisible(wnd.hnd))
+			ok = false;
+	}
+	if (!ok) {
+		QMessageBox::information(this, "Refresh", 
+			QString("%1\n%2")
+			.arg(tr("There are some windows hidden by the bosskey. \n"))
+			.arg(tr("Before close the program, you should show them.")), 
+			QMessageBox::Yes);
+		e->ignore();
+	}
+	else
+		e->accept();
 }
 
 #pragma endregion UI Interaction
@@ -184,15 +261,23 @@ bool MainDialog::setupHotKey(QKeySequence key) {
 				if (wnd.actionhk != WndBKType::NO_ACTION && wnd.hotkey == key) {
 					// 状态栏显示
 					if (wnd.actionhk == WndBKType::SHOW_STATUSBAR_ICON) {
+						// 需要活动窗口去隐藏
+						if (wnd.needActive && wnd.hnd != GetForegroundWindow()) 
+							return;
+
 						if (IsIconic(wnd.hnd))
-							Utils::SetFGWindow(wnd.hnd);
+							Utils::RestoreWindow(wnd.hnd);
 						else
 							Utils::MinimizeWindow(wnd.hnd);
 					} 
 					// 状态栏不显示
 					else {
-						if (IsWindowVisible(wnd.hnd))
+						if (IsWindowVisible(wnd.hnd)) {
+							// 需要活动窗口去隐藏
+							if (wnd.needActive && wnd.hnd != GetForegroundWindow()) 
+								return;
 							Utils::HideWindow(wnd.hnd);
+						}
 						else // TODO 更好的方法
 							Utils::UnHideWindow(wnd.hnd);
 					}

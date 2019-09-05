@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>350</width>
-    <height>463</height>
+    <height>488</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -256,6 +256,13 @@
         </layout>
        </item>
        <item>
+        <widget class="QCheckBox" name="checkBox_ActiveToHide">
+         <property name="text">
+          <string>&amp;Need to be active when hide the window to taskbar</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="horizontalLayout_3">
          <item>
           <spacer name="horizontalSpacer_3">
@@ -305,6 +312,13 @@
        </spacer>
       </item>
       <item>
+       <widget class="QPushButton" name="pushButton_ShowAllWindowsHidden">
+        <property name="text">
+         <string>Show Windows &amp;Hidden</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QPushButton" name="pushButton_Exit">
         <property name="text">
          <string>E&amp;xit</string>
@@ -340,7 +354,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>339</x>
-     <y>452</y>
+     <y>477</y>
     </hint>
     <hint type="destinationlabel">
      <x>120</x>
