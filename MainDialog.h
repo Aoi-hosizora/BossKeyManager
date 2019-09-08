@@ -33,6 +33,8 @@ private:
 	bool setupHotKey(QKeySequence);
 	void unSetupHotKey(QKeySequence);
 	void unSetupAllHotKey();
+	bool isWndHide(HWND);
+	bool isWndHide();
 
 };
 

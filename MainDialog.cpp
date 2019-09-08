@@ -69,17 +69,12 @@ void MainDialog::on_listWidget_currentRowChanged(int idx) {
 
 // 刷新
 void MainDialog::on_pushButton_Refresh_clicked() {
-	// 判断是否有被隐藏的窗口
-	bool ok = true;
-	foreach (Wnd wnd, Global::WindowsList) {
-		if (IsWindow(wnd.hnd) && !IsWindowVisible(wnd.hnd))
-			ok = false;
-	}
-	if (!ok) {
+	// 存在隐藏窗口
+	if (isWndHide()) {
 		QMessageBox::StandardButton result = QMessageBox::information(this, "Refresh", 
 			QString("%1\n%2")
-				.arg(tr("There are some windows hidden by the bosskey. \n"))
-				.arg(tr("You should show them to refresh the list.")), 
+			.arg(tr("There are some windows hidden by the bosskey. \n"))
+			.arg(tr("You should show them to refresh the list.")), 
 			QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
 		// 不刷新
 		if (result == QMessageBox::No) return;
@@ -88,6 +83,7 @@ void MainDialog::on_pushButton_Refresh_clicked() {
 			on_pushButton_ShowAllWindowsHidden_clicked();
 		}
 	}
+	// 没隐藏窗口直接刷新
 	loadWindowsList();
 }
 
@@ -111,7 +107,7 @@ void MainDialog::on_pushButton_Rename_clicked() {
 		Global::CurrWnd->caption = newTitle;
 		ui.listWidget->item(ui.listWidget->currentRow())
 			->setText(Global::CurrWnd->toQString());
-	
+
 		on_listWidget_currentRowChanged(ui.listWidget->currentRow());
 	}
 }
@@ -154,12 +150,12 @@ void MainDialog::on_pushButton_Setup_clicked() {
 
 // 删除状态
 void MainDialog::on_pushButton_Delete_clicked() {
-	// 删除状态解除窗口隐藏
-	if (IsWindow(Global::CurrWnd->hnd) && !IsWindowVisible(Global::CurrWnd->hnd)) {
+	// 判断窗口是否隐藏
+	if (Global::CurrWnd->actionhk == WndBKType::HIDE_STATUSBAR_ICON && isWndHide(Global::CurrWnd->hnd)) {
 		QMessageBox::StandardButton result = QMessageBox::information(this, "Refresh", 
 			QString("%1\n%2")
-				.arg(tr("This window is hidden by the bosskey. \n"))
-				.arg(tr("Before delete the setting, you should show it.")), 
+			.arg(tr("This window is hidden by the bosskey. \n"))
+			.arg(tr("Before delete the setting, you should show it.")), 
 			QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
 		// 不刷新
 		if (result == QMessageBox::No) return;
@@ -189,28 +185,23 @@ void MainDialog::on_pushButton_Delete_clicked() {
 void MainDialog::on_pushButton_ShowAllWindowsHidden_clicked() {
 	int cnt = 0;
 	foreach (Wnd wnd, Global::WindowsList) {
-		if (IsWindow(wnd.hnd) && !IsWindowVisible(wnd.hnd)) {
+		if (wnd.actionhk == WndBKType::HIDE_STATUSBAR_ICON && IsWindow(wnd.hnd) && !IsWindowVisible(wnd.hnd)) {
 			cnt++;
 			Utils::UnHideWindow(wnd.hnd);
 		}
 	}
 	if (cnt == 0)
 		QMessageBox::information(this, "Show", 
-			"There is no window hidden.");
+		"There is no window hidden.");
 	else
 		QMessageBox::information(this, "Show", 
-			(cnt == 1) ? "1 window shown finished" : QString("%1%2").arg(cnt).arg(" windows shown finished"));
+		(cnt == 1) ? "1 window shown finished" : QString("%1%2").arg(cnt).arg(" windows shown finished"));
 }
 
 // 窗口关闭
 void MainDialog::closeEvent(QCloseEvent *e) {
 	// 判断是否有被隐藏的窗口
-	bool ok = true;
-	foreach (Wnd wnd, Global::WindowsList) {
-		if (!IsWindowVisible(wnd.hnd))
-			ok = false;
-	}
-	if (!ok) {
+	if (isWndHide()) {
 		QMessageBox::information(this, "Refresh", 
 			QString("%1\n%2")
 			.arg(tr("There are some windows hidden by the bosskey. \n"))
@@ -235,6 +226,7 @@ void MainDialog::loadWindowsList() {
 
 	ui.label_Caption->setText(tr("Not selected"));
 	ui.label_Process->setText(tr("Not selected"));
+	ui.hotKeyEdit->setKeySequence(QKeySequence::NoMatch);
 	ui.groupBox->setEnabled(false);
 	ui.comboBox_Action->setCurrentIndex(0);
 
@@ -317,6 +309,21 @@ void MainDialog::unSetupAllHotKey() {
 		Global::shortcuts.erase(iter);
 		delete sc;
 	}
+}
+
+// 检查所有窗口是否被隐藏
+bool MainDialog::isWndHide() {
+	foreach (Wnd wnd, Global::WindowsList) {
+		if (wnd.actionhk ==  WndBKType::HIDE_STATUSBAR_ICON && // 窗口操作为隐藏图标
+			IsWindow(wnd.hnd) && !IsWindowVisible(wnd.hnd)) // 该窗口还存在并且被隐藏
+			return true;
+	}
+	return false;
+}
+
+// 检查指定是否被隐藏
+bool MainDialog::isWndHide(HWND hnd) {
+	return IsWindow(hnd) && !IsWindowVisible(hnd);
 }
 
 #pragma endregion Functions
