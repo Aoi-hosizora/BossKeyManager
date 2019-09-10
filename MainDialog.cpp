@@ -236,20 +236,24 @@ bool MainDialog::setupHotKey(QKeySequence key) {
 		connect(shortcut, &QxtGlobalShortcut::activated, [=]() {
 			foreach (Wnd wnd, Global::WindowsList) {
 				if (wnd.actionhk != WndBKType::NO_ACTION && wnd.hotkey == key) {
-					// 状态栏显示
+					// 状态栏显示 ----------------- 1
 					if (wnd.actionhk == WndBKType::SHOW_STATUSBAR_ICON) {
 						// 需要活动窗口去隐藏
 						if (wnd.needActive && wnd.hnd != GetForegroundWindow()) 
 							return;
 
-						if (IsIconic(wnd.hnd))
+						bool isStatus = IsIconic(wnd.hnd);
+						Utils::SetMute(&wnd, !isStatus);
+						if (isStatus)
 							Utils::RestoreWindow(wnd.hnd);
 						else
 							Utils::MinimizeWindow(wnd.hnd);
 					} 
-					// 状态栏不显示
+					// 状态栏不显示 ----------------- 2
 					else {
-						if (IsWindowVisible(wnd.hnd)) {
+						bool isShow = IsWindowVisible(wnd.hnd);
+						Utils::SetMute(&wnd, isShow);
+						if (isShow) {
 							// 需要活动窗口去隐藏
 							if (wnd.needActive && wnd.hnd != GetForegroundWindow()) 
 								return;

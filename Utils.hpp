@@ -15,6 +15,10 @@
 #include <QtCore/QtCore>
 #include <locale>
 
+#include <MMDeviceAPI.h>
+#include <Audiopolicy.h>
+#pragma comment(lib, "Winmm.lib")
+
 #include "Wnd.h"
 #include "Global.hpp"
 
@@ -34,9 +38,11 @@ public:
 		TCHAR wcs[256] = {0};
 		while (hwnd != nullptr) {
 			// 过滤非窗口和不可见窗口
-			if (IsWindow(hwnd) && IsWindowVisible(hwnd) && // Visible
-				(GetParent(hwnd) == GetWindow(hwnd, GW_OWNER) || GetParent(hwnd) == dsk) && // Level
-				(GetWindowLong(hwnd, GWL_STYLE) & WS_VISIBLE) && // IsTaskbarWindow
+			HWND owner = GetWindow(hwnd, GW_OWNER);
+			HWND parent = GetParent(hwnd);
+			if (IsWindow(hwnd) && IsWindowVisible(hwnd) &&									// Visible
+				!owner && (parent == owner || parent == dsk) &&								// Level
+				(GetWindowLong(hwnd, GWL_STYLE) & WS_VISIBLE) &&							// IsTaskbarWindow
 				(!(GetWindowLong(hwnd, GWL_EXSTYLE) & WS_EX_TOOLWINDOW))
 			) {
 				memset(wcs, 0, 255);
@@ -150,6 +156,36 @@ public:
 	// 显示窗口
 	static void UnHideWindow(HWND hwnd) {
 		ShowWindowAsync(hwnd, SW_SHOW);
+	}
+
+	// 设置窗口静音
+	static void SetMute(Wnd *wnd, bool isMute) {
+		::CoInitialize(nullptr);
+		IMMDeviceEnumerator *deviceEnumerator;
+		::CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_INPROC_SERVER, IID_PPV_ARGS(&deviceEnumerator));
+		IMMDevice *device;
+		deviceEnumerator->GetDefaultAudioEndpoint(EDataFlow::eRender, ERole::eMultimedia, &device);
+		IAudioSessionManager2 *sessionManager;
+		device->Activate(__uuidof(IAudioSessionManager2), CLSCTX_INPROC_SERVER, nullptr, reinterpret_cast<void **>(&sessionManager));
+		IAudioSessionEnumerator *sessionEnumerator;
+		sessionManager->GetSessionEnumerator(&sessionEnumerator);
+		unsigned int count;
+		sessionEnumerator->GetCount(reinterpret_cast<int *>(&count));
+		for (unsigned int i = 0; i < count; i++) {
+			IAudioSessionControl *session1;
+			sessionEnumerator->GetSession(i, &session1);
+			IAudioSessionControl2 *session;
+			session1->QueryInterface(&session);
+			DWORD processId;
+			session->GetProcessId(&processId);
+			// if (processId != (unsigned long) pid) {
+			if (getImageName(processId) != wnd->image)
+				continue;
+			ISimpleAudioVolume *audioVolume;
+			session->QueryInterface(&audioVolume);
+			audioVolume->SetMute(isMute, nullptr);
+			 break;
+		}
 	}
 };
 
