@@ -61,6 +61,7 @@ void MainDialog::on_listWidget_currentRowChanged(int idx) {
 			ui.comboBox_Action->setCurrentIndex(0);
 		ui.hotKeyEdit->setKeySequence(Global::CurrWnd->hotkey);
 		ui.checkBox_ActiveToHide->setChecked(Global::CurrWnd->needActive);		
+		ui.checkBox_Mute->setChecked(Global::CurrWnd->mute);		
 	}
 
 	ui.groupBox->setEnabled(idx != -1);
@@ -133,6 +134,7 @@ void MainDialog::on_pushButton_Setup_clicked() {
 		else if (combo == Global::HIDE_STATUSBAR_ICON)
 			Global::CurrWnd->actionhk = WndBKType::HIDE_STATUSBAR_ICON;
 		Global::CurrWnd->needActive = ui.checkBox_ActiveToHide->isChecked();
+		Global::CurrWnd->mute = ui.checkBox_Mute->isChecked();
 	}
 
 	QListWidgetItem *curr = ui.listWidget->selectedItems().at(0);
@@ -160,6 +162,7 @@ void MainDialog::on_pushButton_Delete_clicked() {
 	Global::CurrWnd->hotkey = QKeySequence::NoMatch;
 	ui.hotKeyEdit->setKeySequence(QKeySequence::NoMatch);
 	Global::CurrWnd->needActive = false;
+	Global::CurrWnd->mute = false;
 
 	QListWidgetItem *curr = ui.listWidget->selectedItems().at(0);
 	QFont b = curr->font();
@@ -243,7 +246,8 @@ bool MainDialog::setupHotKey(QKeySequence key) {
 							return;
 
 						bool isStatus = IsIconic(wnd.hnd);
-						Utils::SetMute(&wnd, !isStatus);
+						if (wnd.mute) 
+							Utils::SetMute(&wnd, !isStatus);
 						if (isStatus)
 							Utils::RestoreWindow(wnd.hnd);
 						else
@@ -252,7 +256,8 @@ bool MainDialog::setupHotKey(QKeySequence key) {
 					// 状态栏不显示 ----------------- 2
 					else {
 						bool isShow = IsWindowVisible(wnd.hnd);
-						Utils::SetMute(&wnd, isShow);
+						if (wnd.mute) 
+							Utils::SetMute(&wnd, isShow);
 						if (isShow) {
 							// 需要活动窗口去隐藏
 							if (wnd.needActive && wnd.hnd != GetForegroundWindow()) 

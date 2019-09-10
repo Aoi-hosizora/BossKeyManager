@@ -24,11 +24,13 @@ public:
 	WndBKType actionhk;
 	QKeySequence hotkey;
 	bool needActive;
+	bool mute;
 
 
 	Wnd(HWND hnd, QString caption, int pid, QString image) 
 		: hnd(hnd), caption(caption), pid(pid), image(image),
-		actionhk(WndBKType::NO_ACTION), hotkey(QKeySequence::NoMatch), needActive(false) {}
+		actionhk(WndBKType::NO_ACTION), hotkey(QKeySequence::NoMatch), 
+		needActive(false), mute(false) {}
 
 	QString toQString() {
 		QString h = QString("0x%1").arg(QString("%1").arg((int) hnd, 6, 16, QLatin1Char('0')).toUpper());

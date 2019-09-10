@@ -184,7 +184,6 @@ public:
 			ISimpleAudioVolume *audioVolume;
 			session->QueryInterface(&audioVolume);
 			audioVolume->SetMute(isMute, nullptr);
-			 break;
 		}
 	}
 };
