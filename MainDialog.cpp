@@ -69,21 +69,11 @@ void MainDialog::on_listWidget_currentRowChanged(int idx) {
 
 // 刷新
 void MainDialog::on_pushButton_Refresh_clicked() {
-	// 存在隐藏窗口
-	if (isWndHide()) {
-		QMessageBox::StandardButton result = QMessageBox::information(this, "Refresh", 
-			QString("%1\n%2")
-			.arg(tr("There are some windows hidden by the bosskey. \n"))
-			.arg(tr("You should show them to refresh the list.")), 
-			QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
-		// 不刷新
-		if (result == QMessageBox::No) return;
-		else {
-			// 显示后刷新
-			on_pushButton_ShowAllWindowsHidden_clicked();
-		}
-	}
-	// 没隐藏窗口直接刷新
+	QString msg = QString("%1\n%2")
+		.arg(tr("There are some windows hidden by the bosskey. \n"))
+		.arg(tr("Before refresh the list, you should show them."));
+
+	if (!checkWndHideContinue("Refresh", msg)) return;
 	loadWindowsList();
 }
 
@@ -114,6 +104,11 @@ void MainDialog::on_pushButton_Rename_clicked() {
 
 // 设置状态
 void MainDialog::on_pushButton_Setup_clicked() {
+	QString msg = QString("%1\n%2")
+		.arg(tr("This window is hidden by the bosskey. \n"))
+		.arg(tr("Before setup this item, you should show it."));
+	if (!checkWndHideContinue(Global::CurrWnd->hnd, "Setup", msg)) return;
+
 	unSetupHotKey(Global::CurrWnd->hotkey);
 
 	QString combo = ui.comboBox_Action->currentText();
@@ -151,20 +146,13 @@ void MainDialog::on_pushButton_Setup_clicked() {
 // 删除状态
 void MainDialog::on_pushButton_Delete_clicked() {
 	// 判断窗口是否隐藏
-	if (Global::CurrWnd->actionhk == WndBKType::HIDE_STATUSBAR_ICON && isWndHide(Global::CurrWnd->hnd)) {
-		QMessageBox::StandardButton result = QMessageBox::information(this, "Refresh", 
-			QString("%1\n%2")
+	if (Global::CurrWnd->actionhk == WndBKType::HIDE_STATUSBAR_ICON) {
+		QString msg = QString("%1\n%2")
 			.arg(tr("This window is hidden by the bosskey. \n"))
-			.arg(tr("Before delete the setting, you should show it.")), 
-			QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
-		// 不刷新
-		if (result == QMessageBox::No) return;
-		else {
-			// 显示后刷新
-			on_pushButton_ShowAllWindowsHidden_clicked();
-		}
+			.arg(tr("Before delete the setting, you should show it."));
+		if (!checkWndHideContinue(Global::CurrWnd->hnd, "Delete", msg))
+			return;
 	}
-
 	Global::CurrWnd->actionhk = WndBKType::NO_ACTION;
 	ui.comboBox_Action->setCurrentIndex(0);
 
@@ -201,14 +189,11 @@ void MainDialog::on_pushButton_ShowAllWindowsHidden_clicked() {
 // 窗口关闭
 void MainDialog::closeEvent(QCloseEvent *e) {
 	// 判断是否有被隐藏的窗口
-	if (isWndHide()) {
-		QMessageBox::information(this, "Refresh", 
-			QString("%1\n%2")
-			.arg(tr("There are some windows hidden by the bosskey. \n"))
-			.arg(tr("Before close the program, you should show them.")), 
-			QMessageBox::Yes);
+	QString msg = QString("%1\n%2")
+		.arg(tr("There are some windows hidden by the bosskey. \n"))
+		.arg(tr("Before close the program, you should show them."));
+	if (!checkWndHideContinue("Exit", msg))
 		e->ignore();
-	}
 	else
 		e->accept();
 }
@@ -312,18 +297,46 @@ void MainDialog::unSetupAllHotKey() {
 }
 
 // 检查所有窗口是否被隐藏
-bool MainDialog::isWndHide() {
+bool MainDialog::checkWndHideContinue(QString title, QString msg) {
+	bool has = false;
 	foreach (Wnd wnd, Global::WindowsList) {
 		if (wnd.actionhk ==  WndBKType::HIDE_STATUSBAR_ICON && // 窗口操作为隐藏图标
 			IsWindow(wnd.hnd) && !IsWindowVisible(wnd.hnd)) // 该窗口还存在并且被隐藏
-			return true;
+			has = true;
 	}
-	return false;
+	// 不存在隐藏窗口，继续操作
+	if (!has) return true;
+
+	// 存在隐藏窗口，判断
+	QMessageBox::StandardButton result = QMessageBox::information(this,
+		title, msg, QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+
+	// 不操作
+	if (result == QMessageBox::No) 
+		return false;
+	
+	// 刷新后操作
+	on_pushButton_ShowAllWindowsHidden_clicked();
+	return true;
 }
 
 // 检查指定是否被隐藏
-bool MainDialog::isWndHide(HWND hnd) {
-	return IsWindow(hnd) && !IsWindowVisible(hnd);
+bool MainDialog::checkWndHideContinue(HWND hnd, QString title, QString msg) {
+	if (IsWindow(hnd) && !IsWindowVisible(hnd)) {
+		// 被隐藏，判断
+		QMessageBox::StandardButton result = QMessageBox::information(this, 
+			title, msg, QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
+
+		// 不操作
+		if (result == QMessageBox::No) 
+			return false;
+
+		// 显示后操作
+		Utils::UnHideWindow(hnd);
+		return true;
+	}
+	// 不被隐藏
+	return true;
 }
 
 #pragma endregion Functions
