@@ -1,8 +1,6 @@
 #ifndef WND_H
 #define WND_H
 
-#include "Utils.hpp"
-
 #include <QtCore/QtCore>
 #include <QtWidgets/QKeySequenceEdit>
 #include <Windows.h>

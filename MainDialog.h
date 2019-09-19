@@ -2,10 +2,11 @@
 #define MAINDIALOG_H
 
 #ifdef WIN32  
-#pragma execution_character_set("utf-8")  
+#pragma execution_character_set("utf-8")
 #endif
 
 #include "ui_MainDialog.h"
+#include "Wnd.h"
 #include <QtWidgets/QMainWindow>
 
 class MainDialog : public QMainWindow {
@@ -33,7 +34,7 @@ private:
 	bool setupHotKey(QKeySequence);
 	void unSetupHotKey(QKeySequence);
 	void unSetupAllHotKey();
-	bool checkWndHideContinue(HWND, QString, QString);
+	bool checkWndHideContinue(Wnd *, QString, QString);
 	bool checkWndHideContinue(QString, QString);
 
 };

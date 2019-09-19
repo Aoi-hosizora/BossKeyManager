@@ -35,6 +35,8 @@ void MainDialog::onLoaded() {
 		<< Global::NO_ACTION 
 		<< Global::SHOW_STATUSBAR_ICON 
 		<< Global::HIDE_STATUSBAR_ICON);
+
+	unSetupAllHotKey();
 	loadWindowsList();
 }
 
@@ -51,7 +53,7 @@ void MainDialog::on_listWidget_currentRowChanged(int idx) {
 	if (idx != -1) {
 		Global::CurrWnd = &Global::WindowsList.at(idx);
 		setEclipseLabel(ui.label_Caption, Global::CurrWnd->caption, 180);
-		setEclipseLabel(ui.label_Process, Global::CurrWnd->image, 180);
+		setEclipseLabel(ui.label_Process, QString("%1 (%2)").arg(Global::CurrWnd->image).arg(Global::CurrWnd->pid), 180);
 
 		if (Global::CurrWnd->actionhk == WndBKType::SHOW_STATUSBAR_ICON)
 			ui.comboBox_Action->setCurrentIndex(1);
@@ -108,7 +110,7 @@ void MainDialog::on_pushButton_Setup_clicked() {
 	QString msg = QString("%1\n%2")
 		.arg(tr("This window is hidden by the bosskey. \n"))
 		.arg(tr("Before setup this item, you should show it."));
-	if (!checkWndHideContinue(Global::CurrWnd->hnd, "Setup", msg)) return;
+	if (!checkWndHideContinue(Global::CurrWnd, "Setup", msg)) return;
 
 	unSetupHotKey(Global::CurrWnd->hotkey);
 
@@ -152,7 +154,7 @@ void MainDialog::on_pushButton_Delete_clicked() {
 		QString msg = QString("%1\n%2")
 			.arg(tr("This window is hidden by the bosskey. \n"))
 			.arg(tr("Before delete the setting, you should show it."));
-		if (!checkWndHideContinue(Global::CurrWnd->hnd, "Delete", msg))
+		if (!checkWndHideContinue(Global::CurrWnd, "Delete", msg))
 			return;
 	}
 	Global::CurrWnd->actionhk = WndBKType::NO_ACTION;
@@ -179,6 +181,7 @@ void MainDialog::on_pushButton_ShowAllWindowsHidden_clicked() {
 		if (wnd.actionhk == WndBKType::HIDE_STATUSBAR_ICON && IsWindow(wnd.hnd) && !IsWindowVisible(wnd.hnd)) {
 			cnt++;
 			Utils::UnHideWindow(wnd.hnd);
+			Utils::SetMute(&wnd, false);
 		}
 	}
 	if (cnt == 0)
@@ -209,7 +212,6 @@ void MainDialog::closeEvent(QCloseEvent *e) {
 
 // 加载列表内容
 void MainDialog::loadWindowsList() {
-	unSetupAllHotKey();
 	ui.listWidget->clear();
 
 	ui.label_Caption->setText(tr("Not selected"));
@@ -225,6 +227,8 @@ void MainDialog::loadWindowsList() {
 	ui.label_Title->setText(QString(tr("A&ctive Windows: (All %1)")).arg(allWnds.size()));
 
 	Global::WindowsList = allWnds;
+	ui.listWidget->clearSelection();
+	ui.groupBox->setEnabled(false);
 }
 
 // 注册热键
@@ -325,13 +329,15 @@ bool MainDialog::checkWndHideContinue(QString title, QString msg) {
 		return false;
 	
 	// 刷新后操作
+	// 注意先注销再显示
+	unSetupAllHotKey();
 	on_pushButton_ShowAllWindowsHidden_clicked();
 	return true;
 }
 
 // 检查指定是否被隐藏
-bool MainDialog::checkWndHideContinue(HWND hnd, QString title, QString msg) {
-	if (IsWindow(hnd) && !IsWindowVisible(hnd)) {
+bool MainDialog::checkWndHideContinue(Wnd *wnd, QString title, QString msg) {
+	if (IsWindow(wnd->hnd) && !IsWindowVisible(wnd->hnd)) {
 		// 被隐藏，判断
 		QMessageBox::StandardButton result = QMessageBox::information(this, 
 			title, msg, QMessageBox::Yes | QMessageBox::No, QMessageBox::Yes);
@@ -341,7 +347,8 @@ bool MainDialog::checkWndHideContinue(HWND hnd, QString title, QString msg) {
 			return false;
 
 		// 显示后操作
-		Utils::UnHideWindow(hnd);
+		Utils::UnHideWindow(wnd->hnd);
+		Utils::SetMute(wnd, false);
 		return true;
 	}
 	// 不被隐藏
