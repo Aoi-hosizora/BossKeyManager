@@ -310,6 +310,7 @@ void MainDialog::unSetupAllHotKey() {
 }
 
 // 检查所有窗口是否被隐藏
+// 并且判断是否需要注销以及显示
 bool MainDialog::checkWndHideContinue(QString title, QString msg) {
 	bool has = false;
 	foreach (Wnd wnd, Global::WindowsList) {
@@ -317,8 +318,12 @@ bool MainDialog::checkWndHideContinue(QString title, QString msg) {
 			IsWindow(wnd.hnd) && !IsWindowVisible(wnd.hnd)) // 该窗口还存在并且被隐藏
 			has = true;
 	}
+
 	// 不存在隐藏窗口，继续操作
-	if (!has) return true;
+	if (!has) {
+		unSetupAllHotKey();
+		return true;
+	}
 
 	// 存在隐藏窗口，判断
 	QMessageBox::StandardButton result = QMessageBox::information(this,
@@ -329,7 +334,6 @@ bool MainDialog::checkWndHideContinue(QString title, QString msg) {
 		return false;
 	
 	// 刷新后操作
-	// 注意先注销再显示
 	unSetupAllHotKey();
 	on_pushButton_ShowAllWindowsHidden_clicked();
 	return true;
