@@ -19,19 +19,31 @@ public:
 private slots:
 	void on_listWidget_currentRowChanged(int);
 	void on_pushButton_Refresh_clicked();
+
 	void on_pushButton_Show_clicked();
-	void on_pushButton_Rename_clicked();
+	void on_action_Rename_triggered();
+	void on_action_Pin_triggered();
+
 	void on_pushButton_Setup_clicked();
 	void on_pushButton_Delete_clicked();
+
 	void on_pushButton_ShowAllWindowsHidden_clicked();
 	void on_comboBox_Action_currentIndexChanged(int);
+
 	void closeEvent(QCloseEvent *) override;
 
 private:
 	Ui::MainDialogClass ui;
+	QMenu *toolButtonMenu;
+	QAction *action_Show;
+	QAction *action_Rename;
+	QAction *action_Pin;
+
+private:
 	void onLoaded();
+	void initMenuAction();
 	void loadWindowsList();
-	void setEclipseLabel(QLabel *, QString, int);
+	void setEclipseLabel(QLabel *, QString);
 	bool setupHotKey(QKeySequence);
 	void unSetupHotKey(QKeySequence);
 	void unSetupAllHotKey();

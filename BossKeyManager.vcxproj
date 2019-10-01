@@ -177,6 +177,7 @@ endlocal</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MOC MainDialog.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">GeneratedFiles\debug\moc_MainDialog.cpp;%(Outputs)</Outputs>
     </CustomBuild>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="Utils.hpp" />
     <ClInclude Include="Wnd.h" />
     <ClInclude Include="qxtglobalshortcut5\core\qxtglobal.h" />
@@ -248,6 +249,9 @@ endlocal</Command>
     <None Include="BossKeyManager.pri" />
     <None Include="BossKeyManager.pro" />
     <None Include="readme.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="BossKeyManager.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

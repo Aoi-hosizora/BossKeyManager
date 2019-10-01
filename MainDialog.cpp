@@ -3,6 +3,7 @@
 #include "Global.hpp"
 
 #include <iostream>
+#include <QtWidgets/QMenu>
 #include <QtWidgets/QMessageBox>
 #include <QtWidgets/QInputDialog>
 #include <QtWidgets/QKeySequenceEdit>
@@ -29,12 +30,39 @@ MainDialog::~MainDialog() {
 
 #pragma region UI Interaction
 
+// 初始化菜单
+void MainDialog::initMenuAction() {
+	toolButtonMenu = new QMenu(this);
+
+	action_Show = new QAction(toolButtonMenu);
+	action_Show->setText(tr("&Show"));
+	action_Rename = new QAction(toolButtonMenu);
+	action_Rename->setText(tr("&Rename"));
+	action_Pin = new QAction(toolButtonMenu);
+	action_Pin->setText(tr("&Pin"));
+	action_Pin->setCheckable(true);
+
+	connect(action_Show, SIGNAL(triggered()), this, SLOT(on_pushButton_Show_clicked()));
+	connect(action_Rename, SIGNAL(triggered()), this, SLOT(on_action_Rename_triggered()));
+	connect(action_Pin, SIGNAL(triggered()), this, SLOT(on_action_Pin_triggered()));
+
+	toolButtonMenu->addAction(action_Show);
+	toolButtonMenu->addAction(action_Rename);
+	toolButtonMenu->addSeparator();
+	toolButtonMenu->addAction(action_Pin);
+
+	// ui.toolButton->setStyleSheet("QToolButton::menu-indicator { image: None; }");
+	ui.pushButton_Show->setMenu(toolButtonMenu);
+}
+
 // 窗口载入完毕
 void MainDialog::onLoaded() {
 	ui.comboBox_Action->insertItems(0, QStringList() 
 		<< Global::NO_ACTION 
 		<< Global::SHOW_STATUSBAR_ICON 
 		<< Global::HIDE_STATUSBAR_ICON);
+
+	initMenuAction();
 
 	unSetupAllHotKey();
 	loadWindowsList();
@@ -44,9 +72,9 @@ void MainDialog::onLoaded() {
 }
 
 // QLabel 超过范围显示省略号
-void MainDialog::setEclipseLabel(QLabel *label, QString str, int width) {
+void MainDialog::setEclipseLabel(QLabel *label, QString str) {
 	QFontMetrics fontWidth(label->font());
-	QString elipstr = fontWidth.elidedText(str, Qt::ElideRight, width);
+	QString elipstr = fontWidth.elidedText(str, Qt::ElideRight, label->width());
 	label->setText(elipstr);
 	label->setToolTip(str);
 }
@@ -56,8 +84,8 @@ void MainDialog::on_listWidget_currentRowChanged(int idx) {
 	int currIdx = ui.listWidget->currentRow();
 	if (currIdx != -1) {
 		Global::CurrWnd = &Global::WindowsList.at(idx);
-		setEclipseLabel(ui.label_Caption, Global::CurrWnd->caption, 180);
-		setEclipseLabel(ui.label_Process, QString("%1 (%2)").arg(Global::CurrWnd->image).arg(Global::CurrWnd->pid), 180);
+		setEclipseLabel(ui.label_Caption, Global::CurrWnd->caption);
+		setEclipseLabel(ui.label_Process, QString("%1 (%2)").arg(Global::CurrWnd->image).arg(Global::CurrWnd->pid));
 
 		if (Global::CurrWnd->actionhk == WndBKType::SHOW_STATUSBAR_ICON)
 			ui.comboBox_Action->setCurrentIndex(1);
@@ -65,9 +93,12 @@ void MainDialog::on_listWidget_currentRowChanged(int idx) {
 			ui.comboBox_Action->setCurrentIndex(2);
 		else
 			ui.comboBox_Action->setCurrentIndex(0);
+
 		ui.hotKeyEdit->setKeySequence(Global::CurrWnd->hotkey);
 		ui.checkBox_ActiveToHide->setChecked(Global::CurrWnd->needActive);		
-		ui.checkBox_Mute->setChecked(Global::CurrWnd->mute);		
+		ui.checkBox_Mute->setChecked(Global::CurrWnd->mute);
+
+		action_Pin->setChecked(Utils::IsWindowTopMost(Global::CurrWnd->hnd));
 	}
 
 	ui.groupBox->setEnabled(currIdx != -1);
@@ -97,7 +128,7 @@ void MainDialog::on_pushButton_Show_clicked() {
 }
 
 // 重命名窗口
-void MainDialog::on_pushButton_Rename_clicked() {
+void MainDialog::on_action_Rename_triggered() {
 	bool ok = false;
 	QString newTitle = QInputDialog::getText(this, 
 		tr("Rename caption"), 
@@ -114,6 +145,13 @@ void MainDialog::on_pushButton_Rename_clicked() {
 
 		on_listWidget_currentRowChanged(ui.listWidget->currentRow());
 	}
+}
+
+// 置顶窗口
+void MainDialog::on_action_Pin_triggered() {
+	Utils::SetWindowTopMost(Global::CurrWnd->hnd, action_Pin->isChecked());
+
+	on_listWidget_currentRowChanged(ui.listWidget->currentRow());
 }
 
 // 设置状态

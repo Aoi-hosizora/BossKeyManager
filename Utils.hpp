@@ -158,6 +158,17 @@ public:
 		ShowWindowAsync(hwnd, SW_SHOW);
 	}
 
+	// 窗口是否置顶
+	static bool IsWindowTopMost(HWND hwnd) {
+		return GetWindowLong(hwnd, GWL_EXSTYLE) & WS_EX_TOPMOST;
+	}
+
+	// 设置窗口置顶
+	static void SetWindowTopMost(HWND hwnd, bool isTopMost) {
+		HWND hWndInsertAfter = isTopMost ? HWND_TOPMOST : HWND_NOTOPMOST;
+		::SetWindowPos(hwnd, hWndInsertAfter, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+	}
+
 	// 设置窗口静音
 	static void SetMute(Wnd *wnd, bool isMute) {
 		::CoInitialize(nullptr);

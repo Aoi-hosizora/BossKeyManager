@@ -89,15 +89,14 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>23</height>
+            </size>
+           </property>
            <property name="text">
             <string>xxxxxx</string>
-           </property>
-          </widget>
-         </item>
-         <item>
-          <widget class="QPushButton" name="pushButton_Rename">
-           <property name="text">
-            <string>Re&amp;name</string>
            </property>
           </widget>
          </item>
@@ -120,20 +119,39 @@
              <verstretch>0</verstretch>
             </sizepolicy>
            </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>23</height>
+            </size>
+           </property>
            <property name="text">
             <string>xxxxxx</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton_Show">
-           <property name="font">
-            <font>
-             <pointsize>9</pointsize>
-            </font>
+          <widget class="QToolButton" name="pushButton_Show">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>75</width>
+             <height>23</height>
+            </size>
            </property>
            <property name="text">
             <string>Sho&amp;w</string>
+           </property>
+           <property name="popupMode">
+            <enum>QToolButton::MenuButtonPopup</enum>
+           </property>
+           <property name="toolButtonStyle">
+            <enum>Qt::ToolButtonTextOnly</enum>
            </property>
           </widget>
          </item>
@@ -317,10 +335,8 @@
  <tabstops>
   <tabstop>checkBox_ActiveToHide</tabstop>
   <tabstop>listWidget</tabstop>
-  <tabstop>pushButton_Rename</tabstop>
   <tabstop>pushButton_Exit</tabstop>
   <tabstop>pushButton_Delete</tabstop>
-  <tabstop>pushButton_Show</tabstop>
   <tabstop>pushButton_Refresh</tabstop>
   <tabstop>pushButton_Setup</tabstop>
   <tabstop>pushButton_ShowAllWindowsHidden</tabstop>

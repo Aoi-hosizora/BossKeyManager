@@ -87,6 +87,9 @@
     <ClInclude Include="qxtglobalshortcut5\gui\qxtglobalshortcut_p.h">
       <Filter>Reference Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\debug\moc_HotKeyEdit.cpp">
@@ -124,5 +127,8 @@
     <None Include="BossKeyManager.pro" />
     <None Include=".gitignore" />
     <None Include="BossKeyManager.pri" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="BossKeyManager.rc" />
   </ItemGroup>
 </Project>
