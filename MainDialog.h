@@ -24,6 +24,7 @@ private slots:
 	void on_pushButton_Setup_clicked();
 	void on_pushButton_Delete_clicked();
 	void on_pushButton_ShowAllWindowsHidden_clicked();
+	void on_comboBox_Action_currentIndexChanged(int);
 	void closeEvent(QCloseEvent *) override;
 
 private:

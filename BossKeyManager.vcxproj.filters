@@ -35,7 +35,7 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="References">
+    <Filter Include="Reference Files">
       <UniqueIdentifier>{1bf89617-0408-469f-8484-850819f0c6ac}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -47,19 +47,19 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="qxtglobalshortcut5\core\qxtglobal.cpp">
-      <Filter>References</Filter>
+      <Filter>Reference Files</Filter>
     </ClCompile>
     <ClCompile Include="qxtglobalshortcut5\gui\qxtwindowsystem_win.cpp">
-      <Filter>References</Filter>
+      <Filter>Reference Files</Filter>
     </ClCompile>
     <ClCompile Include="qxtglobalshortcut5\gui\qxtglobalshortcut.cpp">
-      <Filter>References</Filter>
+      <Filter>Reference Files</Filter>
     </ClCompile>
     <ClCompile Include="qxtglobalshortcut5\gui\qxtglobalshortcut_win.cpp">
-      <Filter>References</Filter>
+      <Filter>Reference Files</Filter>
     </ClCompile>
     <ClCompile Include="qxtglobalshortcut5\gui\qxtwindowsystem.cpp">
-      <Filter>References</Filter>
+      <Filter>Reference Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -79,13 +79,13 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="qxtglobalshortcut5\core\qxtglobal.h">
-      <Filter>References</Filter>
+      <Filter>Reference Files</Filter>
     </ClInclude>
     <ClInclude Include="qxtglobalshortcut5\gui\qxtwindowsystem.h">
-      <Filter>References</Filter>
+      <Filter>Reference Files</Filter>
     </ClInclude>
     <ClInclude Include="qxtglobalshortcut5\gui\qxtglobalshortcut_p.h">
-      <Filter>References</Filter>
+      <Filter>Reference Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -116,7 +116,7 @@
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="qxtglobalshortcut5\gui\qxtglobalshortcut.h">
-      <Filter>References</Filter>
+      <Filter>Reference Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

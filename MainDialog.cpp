@@ -38,6 +38,9 @@ void MainDialog::onLoaded() {
 
 	unSetupAllHotKey();
 	loadWindowsList();
+	if (ui.listWidget->count() > 0)
+		ui.listWidget->setItemSelected(ui.listWidget->item(0), true);
+	// ui.groupBox->setEnabled(false);
 }
 
 // QLabel 超过范围显示省略号
@@ -50,7 +53,8 @@ void MainDialog::setEclipseLabel(QLabel *label, QString str, int width) {
 
 // 列表选中改变
 void MainDialog::on_listWidget_currentRowChanged(int idx) {
-	if (idx != -1) {
+	int currIdx = ui.listWidget->currentRow();
+	if (currIdx != -1) {
 		Global::CurrWnd = &Global::WindowsList.at(idx);
 		setEclipseLabel(ui.label_Caption, Global::CurrWnd->caption, 180);
 		setEclipseLabel(ui.label_Process, QString("%1 (%2)").arg(Global::CurrWnd->image).arg(Global::CurrWnd->pid), 180);
@@ -66,8 +70,15 @@ void MainDialog::on_listWidget_currentRowChanged(int idx) {
 		ui.checkBox_Mute->setChecked(Global::CurrWnd->mute);		
 	}
 
-	ui.groupBox->setEnabled(idx != -1);
+	ui.groupBox->setEnabled(currIdx != -1);
 	ui.pushButton_Delete->setEnabled(Global::CurrWnd->actionhk != WndBKType::NO_ACTION);
+}
+
+// 选项选中修改
+void MainDialog::on_comboBox_Action_currentIndexChanged(int idx) {
+	ui.hotKeyEdit->setEnabled(idx != 0);
+	ui.checkBox_ActiveToHide->setEnabled(idx != 0);
+	ui.checkBox_Mute->setEnabled(idx != 0);
 }
 
 // 刷新
@@ -228,7 +239,6 @@ void MainDialog::loadWindowsList() {
 
 	Global::WindowsList = allWnds;
 	ui.listWidget->clearSelection();
-	ui.groupBox->setEnabled(false);
 }
 
 // 注册热键
@@ -245,30 +255,41 @@ bool MainDialog::setupHotKey(QKeySequence key) {
 				if (wnd.actionhk != WndBKType::NO_ACTION && wnd.hotkey == key) {
 					// 状态栏显示 ----------------- 1
 					if (wnd.actionhk == WndBKType::SHOW_STATUSBAR_ICON) {
-						// 需要活动窗口去隐藏
+						// 需要活动窗口去显示和隐藏
 						if (wnd.needActive && wnd.hnd != GetForegroundWindow()) 
 							return;
 
-						bool isStatus = IsIconic(wnd.hnd);
-						if (wnd.mute) 
-							Utils::SetMute(&wnd, !isStatus);
-						if (isStatus)
-							Utils::RestoreWindow(wnd.hnd);
-						else
-							Utils::MinimizeWindow(wnd.hnd);
-					} 
-					// 状态栏不显示 ----------------- 2
-					else {
-						bool isShow = IsWindowVisible(wnd.hnd);
+						// 当前是否显示
+						bool isShow = !IsIconic(wnd.hnd);
+
+						// 显示：静音，最小化
+						// 最小化：取消静音，还原
 						if (wnd.mute) 
 							Utils::SetMute(&wnd, isShow);
+
+						if (isShow)
+							Utils::MinimizeWindow(wnd.hnd);
+						else
+							Utils::RestoreWindow(wnd.hnd);
+					}
+					// 状态栏不显示 ----------------- 2
+					else {
+						// 当前是否显示
+						bool isShow = IsWindowVisible(wnd.hnd);
+
+						// 显示：静音，隐藏
+						// 隐藏：取消静音，显示
+						if (wnd.mute) 
+							Utils::SetMute(&wnd, isShow);
+
 						if (isShow) {
-							// 需要活动窗口去隐藏
+							// 隐藏需要活动窗口
 							if (wnd.needActive && wnd.hnd != GetForegroundWindow()) 
 								return;
 							Utils::HideWindow(wnd.hnd);
 						}
-						else // TODO 更好的方法
+						else
+							// 显示不考虑活动窗口
 							Utils::UnHideWindow(wnd.hnd);
 					}
 				}
