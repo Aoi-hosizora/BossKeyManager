@@ -3,7 +3,9 @@ Release/
 ipch/
 Win32/
 GeneratedFiles/
+
 .vscode/
+.ionide/
 
 build/
 build.zip

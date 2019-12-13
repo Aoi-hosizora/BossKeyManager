@@ -17,6 +17,7 @@ public:
     ~MainDialog();
 
 private slots:
+    void on_tableWidget_itemDoubleClicked(QTableWidgetItem *);
     void on_tableWidget_currentCellChanged(int, int, int, int);
     void on_pushButton_Refresh_clicked();
 
@@ -44,11 +45,12 @@ private:
     void initData();
     void refreshList();
     void setEclipseLabel(QLabel *, QString);
+    void setCurrentTableWidgetRowBold(bool);
     bool setupHotKey(QKeySequence);
     void unSetupHotKey(QKeySequence);
     void unSetupAllHotKey();
-    bool checkWndHideContinue(Wnd *, QString, QString);
-    bool checkWndHideContinue(QString, QString);
+    bool toContinue(Wnd *, QString, QString);
+    bool toContinue(QString, QString);
 
 };
 

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>350</width>
-    <height>573</height>
+    <height>515</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -32,6 +32,9 @@
        <widget class="QLabel" name="label_Title">
         <property name="text">
          <string>A&amp;ctive Windows:</string>
+        </property>
+        <property name="buddy">
+         <cstring>tableWidget</cstring>
         </property>
        </widget>
       </item>
@@ -64,12 +67,6 @@
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>250</height>
-       </size>
       </property>
       <property name="editTriggers">
        <set>QAbstractItemView::NoEditTriggers</set>
@@ -408,7 +405,6 @@
    </layout>
    <zorder>groupBox</zorder>
    <zorder></zorder>
-   <zorder></zorder>
    <zorder>tableWidget</zorder>
   </widget>
  </widget>
@@ -421,12 +417,17 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>checkBox_ActiveToHide</tabstop>
-  <tabstop>pushButton_Exit</tabstop>
-  <tabstop>pushButton_Delete</tabstop>
   <tabstop>pushButton_Refresh</tabstop>
+  <tabstop>tableWidget</tabstop>
+  <tabstop>pushButton_Show</tabstop>
+  <tabstop>comboBox_Action</tabstop>
+  <tabstop>hotKeyEdit</tabstop>
+  <tabstop>checkBox_ActiveToHide</tabstop>
+  <tabstop>checkBox_Mute</tabstop>
   <tabstop>pushButton_Setup</tabstop>
+  <tabstop>pushButton_Delete</tabstop>
   <tabstop>pushButton_ShowAllWindowsHidden</tabstop>
+  <tabstop>pushButton_Exit</tabstop>
  </tabstops>
  <resources/>
  <connections>
