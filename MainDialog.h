@@ -10,45 +10,45 @@
 #include <QtWidgets/QMainWindow>
 
 class MainDialog : public QMainWindow {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	MainDialog(QWidget *parent = nullptr);
-	~MainDialog();
+    MainDialog(QWidget *parent = nullptr);
+    ~MainDialog();
 
 private slots:
-	void on_listWidget_currentRowChanged(int);
-	void on_pushButton_Refresh_clicked();
+    void on_tableWidget_currentCellChanged(int, int, int, int);
+    void on_pushButton_Refresh_clicked();
 
-	void on_pushButton_Show_clicked();
-	void on_action_Rename_triggered();
-	void on_action_Pin_triggered();
+    void on_pushButton_Show_clicked();
+    void on_action_Rename_triggered();
+    void on_action_Pin_triggered();
 
-	void on_pushButton_Setup_clicked();
-	void on_pushButton_Delete_clicked();
+    void on_pushButton_Setup_clicked();
+    void on_pushButton_Delete_clicked();
 
-	void on_pushButton_ShowAllWindowsHidden_clicked();
-	void on_comboBox_Action_currentIndexChanged(int);
+    void on_pushButton_ShowAllWindowsHidden_clicked();
+    void on_comboBox_Action_currentIndexChanged(int);
 
-	void closeEvent(QCloseEvent *) override;
-
-private:
-	Ui::MainDialogClass ui;
-	QMenu *toolButtonMenu;
-	QAction *action_Show;
-	QAction *action_Rename;
-	QAction *action_Pin;
+    void closeEvent(QCloseEvent *) override;
 
 private:
-	void onLoaded();
-	void initMenuAction();
-	void loadWindowsList();
-	void setEclipseLabel(QLabel *, QString);
-	bool setupHotKey(QKeySequence);
-	void unSetupHotKey(QKeySequence);
-	void unSetupAllHotKey();
-	bool checkWndHideContinue(Wnd *, QString, QString);
-	bool checkWndHideContinue(QString, QString);
+    Ui::MainDialogClass ui;
+    QMenu *toolButtonMenu;
+    QAction *action_Show;
+    QAction *action_Rename;
+    QAction *action_Pin;
+
+private:
+    void initView();
+    void initData();
+    void refreshList();
+    void setEclipseLabel(QLabel *, QString);
+    bool setupHotKey(QKeySequence);
+    void unSetupHotKey(QKeySequence);
+    void unSetupAllHotKey();
+    bool checkWndHideContinue(Wnd *, QString, QString);
+    bool checkWndHideContinue(QString, QString);
 
 };
 

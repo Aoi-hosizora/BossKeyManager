@@ -8,18 +8,18 @@
 #include <QKeySequenceEdit>
 
 class HotKeyEdit : public QKeySequenceEdit {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	HotKeyEdit(QWidget *parent) : QKeySequenceEdit(parent) {}
-	~HotKeyEdit() {}
+    HotKeyEdit(QWidget *parent) : QKeySequenceEdit(parent) {}
+    ~HotKeyEdit() {}
 
 protected:
-	void keyPressEvent(QKeyEvent *pEvent) {
-		QKeySequenceEdit::keyPressEvent(pEvent);
-		QKeySequence seq(QKeySequence::fromString(keySequence().toString().split(", ").first()));
-		setKeySequence(seq);
-	}
+    void keyPressEvent(QKeyEvent *pEvent) {
+        QKeySequenceEdit::keyPressEvent(pEvent);
+        QKeySequence seq(QKeySequence::fromString(keySequence().toString().split(", ").first()));
+        setKeySequence(seq);
+    }
 };
 
 #endif // HOTKEYEDIT_H

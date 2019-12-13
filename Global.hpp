@@ -8,15 +8,15 @@
 class Global {
 
 public:
-	static vector<Wnd> WindowsList;
-	static Wnd *CurrWnd;
-	static vector<QxtGlobalShortcut *> shortcuts;
+    static vector<Wnd> WindowsList;
+    static Wnd *CurrWnd;
+    static vector<QxtGlobalShortcut *> shortcuts;
 
-	// String Const
-	static QString WND_TITLE;
-	static QString NO_ACTION;
-	static QString SHOW_STATUSBAR_ICON;
-	static QString HIDE_STATUSBAR_ICON;
+    // String Const
+    static QString WND_TITLE;
+    static QString NO_ACTION;
+    static QString SHOW_STATUSBAR_ICON;
+    static QString HIDE_STATUSBAR_ICON;
 
 };
 

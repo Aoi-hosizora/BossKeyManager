@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>350</width>
-    <height>515</height>
+    <height>573</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -32,9 +32,6 @@
        <widget class="QLabel" name="label_Title">
         <property name="text">
          <string>A&amp;ctive Windows:</string>
-        </property>
-        <property name="buddy">
-         <cstring>listWidget</cstring>
         </property>
        </widget>
       </item>
@@ -61,7 +58,99 @@
      </layout>
     </item>
     <item>
-     <widget class="QListWidget" name="listWidget"/>
+     <widget class="QTableWidget" name="tableWidget">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>250</height>
+       </size>
+      </property>
+      <property name="editTriggers">
+       <set>QAbstractItemView::NoEditTriggers</set>
+      </property>
+      <property name="showDropIndicator" stdset="0">
+       <bool>true</bool>
+      </property>
+      <property name="selectionMode">
+       <enum>QAbstractItemView::SingleSelection</enum>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+      <property name="verticalScrollMode">
+       <enum>QAbstractItemView::ScrollPerPixel</enum>
+      </property>
+      <property name="horizontalScrollMode">
+       <enum>QAbstractItemView::ScrollPerPixel</enum>
+      </property>
+      <property name="showGrid">
+       <bool>true</bool>
+      </property>
+      <property name="gridStyle">
+       <enum>Qt::SolidLine</enum>
+      </property>
+      <attribute name="horizontalHeaderCascadingSectionResizes">
+       <bool>true</bool>
+      </attribute>
+      <attribute name="horizontalHeaderDefaultSectionSize">
+       <number>60</number>
+      </attribute>
+      <attribute name="horizontalHeaderHighlightSections">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderVisible">
+       <bool>false</bool>
+      </attribute>
+      <attribute name="verticalHeaderDefaultSectionSize">
+       <number>20</number>
+      </attribute>
+      <row>
+       <property name="text">
+        <string>新しい行</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>新しい行</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>新しい行</string>
+       </property>
+      </row>
+      <row>
+       <property name="text">
+        <string>新しい行</string>
+       </property>
+      </row>
+      <column>
+       <property name="text">
+        <string>Handle</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Pid</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Process</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>Title</string>
+       </property>
+      </column>
+     </widget>
     </item>
     <item>
      <widget class="QGroupBox" name="groupBox">
@@ -317,11 +406,10 @@
      </layout>
     </item>
    </layout>
-   <zorder></zorder>
-   <zorder>listWidget</zorder>
    <zorder>groupBox</zorder>
    <zorder></zorder>
    <zorder></zorder>
+   <zorder>tableWidget</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
@@ -334,7 +422,6 @@
  </customwidgets>
  <tabstops>
   <tabstop>checkBox_ActiveToHide</tabstop>
-  <tabstop>listWidget</tabstop>
   <tabstop>pushButton_Exit</tabstop>
   <tabstop>pushButton_Delete</tabstop>
   <tabstop>pushButton_Refresh</tabstop>

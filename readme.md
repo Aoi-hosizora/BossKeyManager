@@ -8,13 +8,13 @@
 
 ### Support actions
 + Minimize the window directly and the icon in taskbar will not hide
-	+ `ShowWindowAsync(hwnd, SW_MINIMIZE)`
+    + `ShowWindowAsync(hwnd, SW_MINIMIZE)`
 
 + Hide the window directly and the icon in taskbar also
-	+ `ShowWindowAsync(hwnd, SW_HIDE)`
+    + `ShowWindowAsync(hwnd, SW_HIDE)`
 
 + Check the window active when action
-	+ `wnd.needActive && wnd.hnd != GetForegroundWindow()`
+    + `wnd.needActive && wnd.hnd != GetForegroundWindow()`
 
 ### Execute
 + Build by `windeployqt`
