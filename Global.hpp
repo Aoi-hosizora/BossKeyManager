@@ -10,7 +10,10 @@ class Global {
 public:
     static vector<Wnd> WindowsList;
     static Wnd *CurrWnd;
+
     static vector<QxtGlobalShortcut *> shortcuts;
+    static QxtGlobalShortcut *wheelUpKeys;
+    static QxtGlobalShortcut *wheelDownKeys;
 
     // String Const
     static QString WND_TITLE;
@@ -23,6 +26,8 @@ public:
 vector<Wnd> Global::WindowsList = vector<Wnd>();
 Wnd *Global::CurrWnd = nullptr;
 vector<QxtGlobalShortcut *> Global::shortcuts = vector<QxtGlobalShortcut *>();
+QxtGlobalShortcut *Global::wheelUpKeys = nullptr;
+QxtGlobalShortcut *Global::wheelDownKeys = nullptr;
 
 // String Const
 QString Global::WND_TITLE = QObject::tr("BossKey Manager");

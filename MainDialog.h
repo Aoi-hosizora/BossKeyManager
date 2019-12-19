@@ -19,17 +19,18 @@ public:
 private slots:
     void on_tableWidget_itemDoubleClicked(QTableWidgetItem *);
     void on_tableWidget_currentCellChanged(int, int, int, int);
+
+    void on_pushButton_ShowAllWindowsHidden_clicked();
     void on_pushButton_Refresh_clicked();
-
     void on_pushButton_Show_clicked();
-    void on_action_Rename_triggered();
-    void on_action_Pin_triggered();
-
     void on_pushButton_Setup_clicked();
     void on_pushButton_Delete_clicked();
 
-    void on_pushButton_ShowAllWindowsHidden_clicked();
+    void on_action_Rename_triggered();
+    void on_action_Pin_triggered();
+
     void on_comboBox_Action_currentIndexChanged(int);
+    void on_checkBox_KeyAsWheel_stateChanged(int);
 
     void closeEvent(QCloseEvent *) override;
 

@@ -30,7 +30,7 @@ void MainDialog::initView() {
     setWindowFlags(Qt::Window
         | Qt::WindowCloseButtonHint
         | Qt::WindowMinimizeButtonHint);
-    setFixedSize(this->width(), this->height());
+    // setFixedSize(this->width(), this->height());
 
     this->setWindowTitle(Global::WND_TITLE);
 
@@ -94,10 +94,6 @@ void MainDialog::setCurrentTableWidgetRowBold(bool isBold) {
 
 #pragma region Interaction
 
-// 双击弹出菜单
-void MainDialog::on_tableWidget_itemDoubleClicked(QTableWidgetItem *item) {
-    ui.pushButton_Show->showMenu();
-}
 
 // 列表选中改变
 void MainDialog::on_tableWidget_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn) {
@@ -118,7 +114,7 @@ void MainDialog::on_tableWidget_currentCellChanged(int currentRow, int currentCo
         ui.checkBox_Mute->setChecked(Global::CurrWnd->setting.needMute);
         action_Pin->setChecked(Utils::IsWindowTopMost(Global::CurrWnd->hnd));
 
-        ui.groupBox->setEnabled(true);
+        ui.group_function->setEnabled(true);
         ui.pushButton_Delete->setEnabled(Global::CurrWnd->setting.actionhk != WndBKType::NO_ACTION);
     } else {
         ui.label_Caption->setText(tr("Not selected"));
@@ -131,7 +127,7 @@ void MainDialog::on_tableWidget_currentCellChanged(int currentRow, int currentCo
         ui.checkBox_Mute->setChecked(false);
         action_Pin->setChecked(false);
 
-        ui.groupBox->setEnabled(false);
+        ui.group_function->setEnabled(false);
         ui.pushButton_Delete->setEnabled(false);
     }
 }
@@ -141,6 +137,40 @@ void MainDialog::on_comboBox_Action_currentIndexChanged(int idx) {
     ui.hotKeyEdit->setEnabled(idx != 0);
     ui.checkBox_ActiveToHide->setEnabled(idx != 0);
     ui.checkBox_Mute->setEnabled(idx != 0);
+}
+
+// 双击弹出菜单
+void MainDialog::on_tableWidget_itemDoubleClicked(QTableWidgetItem *item) {
+    ui.pushButton_Show->showMenu();
+}
+
+// 键盘上下键换成鼠标滚轮
+void MainDialog::on_checkBox_KeyAsWheel_stateChanged(int state) {
+    if (state == Qt::Checked) {
+        Global::wheelUpKeys = new QxtGlobalShortcut(QKeySequence(tr("up")), this);
+        Global::wheelDownKeys = new QxtGlobalShortcut(QKeySequence(tr("down")), this);
+
+        connect(Global::wheelUpKeys, &QxtGlobalShortcut::activated, [=]() {
+            mouse_event(MOUSEEVENTF_WHEEL, 0, 0, WHEEL_DELTA, 0);
+        });
+        connect(Global::wheelDownKeys, &QxtGlobalShortcut::activated, [=]() {
+            mouse_event(MOUSEEVENTF_WHEEL, 0, 0, -WHEEL_DELTA, 0);
+        });
+        QMessageBox::information(this, tr("Keyboard function"), tr("Success to set up/down keys function as mouse wheel up/down"));
+
+    } else {
+        if (Global::wheelUpKeys != nullptr) {
+            disconnect(Global::wheelUpKeys);
+            delete Global::wheelUpKeys;
+            Global::wheelUpKeys = nullptr;
+        }
+        if (Global::wheelDownKeys != nullptr) {
+            disconnect(Global::wheelDownKeys);
+            delete Global::wheelDownKeys;
+            Global::wheelDownKeys = nullptr;
+        }
+        QMessageBox::information(this, tr("Keyboard function"), tr("Success to release up/down keys function to default"));
+    }
 }
 
 // 刷新
@@ -300,7 +330,7 @@ void MainDialog::refreshList() {
     }
 
     ui.label_Title->setText(tr("A&ctive Windows: (All %1)").arg(allWnds.size()));
-    ui.groupBox->setEnabled(false);
+    ui.group_function->setEnabled(false);
     on_tableWidget_currentCellChanged(-1, -1, -1, -1);
 }
 
