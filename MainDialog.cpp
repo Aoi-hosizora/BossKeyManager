@@ -21,7 +21,7 @@ MainDialog::MainDialog(QWidget *parent) : QMainWindow(parent) {
 
 MainDialog::~MainDialog() { }
 
-#pragma region UILoad
+#pragma region LoadUI
 
 // 加载界面
 void MainDialog::initView() {
@@ -31,7 +31,7 @@ void MainDialog::initView() {
         | Qt::WindowCloseButtonHint
         | Qt::WindowMinimizeButtonHint);
     // setFixedSize(this->width(), this->height());
-
+    this->setMinimumSize(this->sizeHint());
     this->setWindowTitle(Global::WND_TITLE);
 
     // Menu
@@ -78,12 +78,25 @@ void MainDialog::setEclipseLabel(QLabel *label, QString str) {
 }
 
 // 设置 TableWidget 当前行粗体
-void MainDialog::setCurrentTableWidgetRowBold(bool isBold) {
-    for (int i = 0; i < ui.tableWidget->horizontalHeader()->count(); i++) {
-        QTableWidgetItem *currCell = ui.tableWidget->item(ui.tableWidget->currentRow(), i);
-        QFont b = currCell->font();
-        b.setBold(isBold);
-        currCell->setFont(b);
+void MainDialog::setCurrentTableWidgetRowBold(bool isBold, bool isKOrW, bool isAll) {
+    if (ui.tableWidget->currentRow() == -1 && !isAll)
+        return;
+
+    int f = ui.tableWidget->currentRow(), t = f + 1;
+    if (isAll) {
+        f = 0;
+        t = ui.tableWidget->rowCount();
+    }
+    for (int r = f; r < t; r++) {
+        ui.tableWidget->item(r, isKOrW ? 1 : 2)->setText(isBold ? "*" : "");
+        bool isb = ui.tableWidget->item(r, 1)->text() == "*" || ui.tableWidget->item(r, 2)->text() == "*";
+
+        for (int c = 0; c < ui.tableWidget->horizontalHeader()->count(); c++) {
+            QTableWidgetItem *currCell = ui.tableWidget->item(r, c);
+            QFont b = currCell->font();
+            b.setBold(isb);
+            currCell->setFont(b);
+        }
     }
 }
 
@@ -94,7 +107,6 @@ void MainDialog::setCurrentTableWidgetRowBold(bool isBold) {
 
 #pragma region Interaction
 
-
 // 列表选中改变
 void MainDialog::on_tableWidget_currentCellChanged(int currentRow, int currentColumn, int previousRow, int previousColumn) {
     if (currentRow != -1) {
@@ -103,19 +115,23 @@ void MainDialog::on_tableWidget_currentCellChanged(int currentRow, int currentCo
         setEclipseLabel(ui.label_Process, tr("%1 (%2)").arg(Global::CurrWnd->image).arg(Global::CurrWnd->pid));
 
         ui.hotKeyEdit->setKeySequence(Global::CurrWnd->setting.hotkey);
-        if (Global::CurrWnd->setting.actionhk == WndBKType::SHOW_STATUSBAR_ICON)
+        if (Global::CurrWnd->setting.wndAction == WndBKType::SHOW_STATUSBAR_ICON)
             ui.comboBox_Action->setCurrentIndex(1);
-        else if (Global::CurrWnd->setting.actionhk == WndBKType::HIDE_STATUSBAR_ICON)
+        else if (Global::CurrWnd->setting.wndAction == WndBKType::HIDE_STATUSBAR_ICON)
             ui.comboBox_Action->setCurrentIndex(2);
         else
             ui.comboBox_Action->setCurrentIndex(0);
 
-        ui.checkBox_ActiveToHide->setChecked(Global::CurrWnd->setting.needActive);
-        ui.checkBox_Mute->setChecked(Global::CurrWnd->setting.needMute);
-        action_Pin->setChecked(Utils::IsWindowTopMost(Global::CurrWnd->hnd));
+        ui.checkBox_NeedActive->setChecked(Global::CurrWnd->setting.needActive);
+        ui.checkBox_NeedMute->setChecked(Global::CurrWnd->setting.needMute);
 
-        ui.group_function->setEnabled(true);
-        ui.pushButton_Delete->setEnabled(Global::CurrWnd->setting.actionhk != WndBKType::NO_ACTION);
+        action_Pin->setChecked(Utils::IsWindowTopMost(Global::CurrWnd->hnd));
+        ui.groupBox_Key->setEnabled(true);
+        ui.pushButton_Delete->setEnabled(Global::CurrWnd->setting.wndAction != WndBKType::NO_ACTION);
+
+        if (!Global::isGlobalWheel) {
+            ui.checkBox_WheelSelf->setChecked(Global::CurrWnd->setting.wheelFunction);
+        }
     } else {
         ui.label_Caption->setText(tr("Not selected"));
         ui.label_Process->setText(tr("Not selected"));
@@ -123,20 +139,22 @@ void MainDialog::on_tableWidget_currentCellChanged(int currentRow, int currentCo
         ui.hotKeyEdit->setKeySequence(QKeySequence::NoMatch);
         ui.comboBox_Action->setCurrentIndex(0);
 
-        ui.checkBox_ActiveToHide->setChecked(false);
-        ui.checkBox_Mute->setChecked(false);
-        action_Pin->setChecked(false);
+        ui.checkBox_NeedActive->setChecked(false);
+        ui.checkBox_NeedMute->setChecked(false);
 
-        ui.group_function->setEnabled(false);
+        action_Pin->setChecked(false);
+        ui.groupBox_Key->setEnabled(false);
         ui.pushButton_Delete->setEnabled(false);
+
+        ui.checkBox_WheelSelf->setEnabled(false);
     }
 }
 
 // 选项选中修改
 void MainDialog::on_comboBox_Action_currentIndexChanged(int idx) {
     ui.hotKeyEdit->setEnabled(idx != 0);
-    ui.checkBox_ActiveToHide->setEnabled(idx != 0);
-    ui.checkBox_Mute->setEnabled(idx != 0);
+    ui.checkBox_NeedActive->setEnabled(idx != 0);
+    ui.checkBox_NeedMute->setEnabled(idx != 0);
 }
 
 // 双击弹出菜单
@@ -144,11 +162,36 @@ void MainDialog::on_tableWidget_itemDoubleClicked(QTableWidgetItem *item) {
     ui.pushButton_Show->showMenu();
 }
 
-// 键盘上下键换成鼠标滚轮
-void MainDialog::on_checkBox_KeyAsWheel_stateChanged(int state) {
+// 所有窗口 键盘上下键换成鼠标滚轮
+// https://libqxt.bitbucket.io/doc/tip/index.html
+// https://libqxt.bitbucket.io/doc/tip/qxtglobalshortcut.html
+// QtxBug: K+ W+ K- W(x)
+//         W+ K- W- K(x)
+//         K+ W+ W- K-
+//         W+ K+ K- W-
+void MainDialog::on_checkBox_WheelAll_stateChanged(int state) {
     if (state == Qt::Checked) {
-        Global::wheelUpKeys = new QxtGlobalShortcut(QKeySequence(tr("up")), this);
-        Global::wheelDownKeys = new QxtGlobalShortcut(QKeySequence(tr("down")), this);
+        if (Global::wheelDownKeys != nullptr) {
+            Global::wheelDownKeys->disconnect();
+            delete Global::wheelDownKeys;
+            Global::wheelDownKeys = nullptr;
+        }
+        if (Global::wheelUpKeys != nullptr) {
+            Global::wheelUpKeys->disconnect();
+            delete Global::wheelUpKeys;
+            Global::wheelUpKeys = nullptr;
+        }
+        Global::wheelDownKeys = new QxtGlobalShortcut(this);
+        Global::wheelUpKeys = new QxtGlobalShortcut(this);
+        if (!Global::wheelDownKeys->setShortcut(QKeySequence(QObject::tr("down")))
+            || !Global::wheelUpKeys->setShortcut(QKeySequence(QObject::tr("up")))) {
+                delete Global::wheelDownKeys;
+                delete Global::wheelUpKeys;
+                Global::wheelDownKeys = Global::wheelUpKeys = nullptr;
+                QMessageBox::critical(this, tr("Wheel function"), tr("The up/down key has already been used, this function is unable"));
+                ui.checkBox_WheelAll->setChecked(false);
+                return;
+        }
 
         connect(Global::wheelUpKeys, &QxtGlobalShortcut::activated, [=]() {
             mouse_event(MOUSEEVENTF_WHEEL, 0, 0, WHEEL_DELTA, 0);
@@ -156,20 +199,39 @@ void MainDialog::on_checkBox_KeyAsWheel_stateChanged(int state) {
         connect(Global::wheelDownKeys, &QxtGlobalShortcut::activated, [=]() {
             mouse_event(MOUSEEVENTF_WHEEL, 0, 0, -WHEEL_DELTA, 0);
         });
-        QMessageBox::information(this, tr("Keyboard function"), tr("Success to set up/down keys function as mouse wheel up/down"));
 
-    } else {
-        if (Global::wheelUpKeys != nullptr) {
-            disconnect(Global::wheelUpKeys);
-            delete Global::wheelUpKeys;
-            Global::wheelUpKeys = nullptr;
-        }
+        Global::isGlobalWheel = true;
+        ui.checkBox_WheelSelf->setEnabled(false);
+        ui.checkBox_WheelSelf->setChecked(true);
+
+        setCurrentTableWidgetRowBold(true, false, true);
+    }
+    else {
         if (Global::wheelDownKeys != nullptr) {
-            disconnect(Global::wheelDownKeys);
+            Global::wheelDownKeys->disconnect();
             delete Global::wheelDownKeys;
             Global::wheelDownKeys = nullptr;
         }
-        QMessageBox::information(this, tr("Keyboard function"), tr("Success to release up/down keys function to default"));
+        if (Global::wheelUpKeys != nullptr) {
+            Global::wheelUpKeys->disconnect();
+            delete Global::wheelUpKeys;
+            Global::wheelUpKeys = nullptr;
+        }
+
+        Global::isGlobalWheel = false;
+        ui.checkBox_WheelSelf->setEnabled(true);
+        ui.checkBox_WheelSelf->setChecked(false);
+
+        setCurrentTableWidgetRowBold(false, false, true);
+    }
+}
+
+// 当前窗口 键盘上下键换成鼠标滚轮
+void MainDialog::on_checkBox_WheelSelf_stateChanged(int state) {
+    if (state == Qt::Checked) {
+        setCurrentTableWidgetRowBold(true, false);
+    } else {
+        setCurrentTableWidgetRowBold(false, false);
     }
 }
 
@@ -227,30 +289,32 @@ void MainDialog::on_pushButton_Setup_clicked() {
     // no action || error
     bool error;
     if (combo == Global::NO_ACTION || (error = !setupHotKey(ui.hotKeyEdit->keySequence()))) {
-        Global::CurrWnd->setting.actionhk = WndBKType::NO_ACTION;
         Global::CurrWnd->setting.hotkey = QKeySequence::NoMatch;
-        if (error) QMessageBox::critical(this, "Error", tr("This hotkey %1 has been used.").arg(ui.hotKeyEdit->keySequence().toString()));
+        Global::CurrWnd->setting.wndAction = WndBKType::NO_ACTION;
 
-        setCurrentTableWidgetRowBold(false);
-        on_tableWidget_currentCellChanged(ui.tableWidget->currentRow(), ui.tableWidget->currentColumn(), 0, 0);
-        return;
+        if (error) 
+            QMessageBox::critical(this, "Error", tr("This hotkey %1 has been used.").arg(ui.hotKeyEdit->keySequence().toString()));
+
+        setCurrentTableWidgetRowBold(false, true);
+    } 
+    else {
+        // Success
+        Global::CurrWnd->setting.hotkey = ui.hotKeyEdit->keySequence();
+        Global::CurrWnd->setting.needActive = ui.checkBox_NeedActive->isChecked();
+        Global::CurrWnd->setting.needMute = ui.checkBox_NeedMute->isChecked();
+        if (combo == Global::SHOW_STATUSBAR_ICON)
+            Global::CurrWnd->setting.wndAction = WndBKType::SHOW_STATUSBAR_ICON;
+        else if (combo == Global::HIDE_STATUSBAR_ICON)
+            Global::CurrWnd->setting.wndAction = WndBKType::HIDE_STATUSBAR_ICON;
+
+        setCurrentTableWidgetRowBold(true, true);
     }
-
-    Global::CurrWnd->setting.hotkey = ui.hotKeyEdit->keySequence();
-    Global::CurrWnd->setting.needActive = ui.checkBox_ActiveToHide->isChecked();
-    Global::CurrWnd->setting.needMute = ui.checkBox_Mute->isChecked();
-    if (combo == Global::SHOW_STATUSBAR_ICON)
-        Global::CurrWnd->setting.actionhk = WndBKType::SHOW_STATUSBAR_ICON;
-    else if (combo == Global::HIDE_STATUSBAR_ICON)
-        Global::CurrWnd->setting.actionhk = WndBKType::HIDE_STATUSBAR_ICON;
-
-    setCurrentTableWidgetRowBold(true);
     on_tableWidget_currentCellChanged(ui.tableWidget->currentRow(), ui.tableWidget->currentColumn(), 0, 0);
 }
 
 // 删除状态
 void MainDialog::on_pushButton_Delete_clicked() {
-    if (Global::CurrWnd->setting.actionhk == WndBKType::HIDE_STATUSBAR_ICON) {
+    if (Global::CurrWnd->setting.wndAction == WndBKType::HIDE_STATUSBAR_ICON) {
         QString msg = tr("%1\n%2")
             .arg(tr("This window is hidden by the bosskey."))
             .arg(tr("Before delete the setting, you should show it."));
@@ -264,17 +328,17 @@ void MainDialog::on_pushButton_Delete_clicked() {
     Global::CurrWnd->setting.hotkey = QKeySequence::NoMatch;
     Global::CurrWnd->setting.needActive = false;
     Global::CurrWnd->setting.needMute = false;
-    Global::CurrWnd->setting.actionhk = WndBKType::NO_ACTION;
-    
-    setCurrentTableWidgetRowBold(false);
+    Global::CurrWnd->setting.wndAction = WndBKType::NO_ACTION;
+
+    setCurrentTableWidgetRowBold(false, true);
     on_tableWidget_currentCellChanged(ui.tableWidget->currentRow(), ui.tableWidget->currentColumn(), 0, 0);
 }
 
 // 显示所有隐藏
-void MainDialog::on_pushButton_ShowAllWindowsHidden_clicked() {
+void MainDialog::on_pushButton_ShowHidden_clicked() {
     int cnt = 0;
     foreach (Wnd wnd, Global::WindowsList) {
-        if (wnd.setting.actionhk == WndBKType::HIDE_STATUSBAR_ICON && IsWindow(wnd.hnd) && !IsWindowVisible(wnd.hnd)) {
+        if (wnd.setting.wndAction == WndBKType::HIDE_STATUSBAR_ICON && IsWindow(wnd.hnd) && !IsWindowVisible(wnd.hnd)) {
             cnt++;
             Utils::UnHideWindow(wnd.hnd);
             Utils::SetMute(&wnd, false);
@@ -312,7 +376,9 @@ void MainDialog::refreshList() {
         ui.tableWidget->removeRow(0);
 
     ui.tableWidget->setHorizontalHeaderLabels(
-        QStringList() << tr("Handle") << tr("Pid") << tr("Process") << tr("Caption")  
+        QStringList() 
+            << tr("Handle") << tr ("K") << tr ("W") 
+            << tr("Pid") << tr("Process") << tr("Caption")  
     );
     ui.tableWidget->verticalHeader()->setDefaultSectionSize(20);
     ui.tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
@@ -324,14 +390,16 @@ void MainDialog::refreshList() {
         int row = ui.tableWidget->rowCount();
         ui.tableWidget->insertRow(row);
         ui.tableWidget->setItem(row, 0, new QTableWidgetItem(wnd.hndString()));
-        ui.tableWidget->setItem(row, 1, new QTableWidgetItem(QString::number(wnd.pid)));
-        ui.tableWidget->setItem(row, 2, new QTableWidgetItem(wnd.image));
-        ui.tableWidget->setItem(row, 3, new QTableWidgetItem(wnd.caption));
+        ui.tableWidget->setItem(row, 1, new QTableWidgetItem(""));
+        ui.tableWidget->setItem(row, 2, new QTableWidgetItem(""));
+
+        ui.tableWidget->setItem(row, 3, new QTableWidgetItem(QString::number(wnd.pid)));
+        ui.tableWidget->setItem(row, 4, new QTableWidgetItem(wnd.image));
+        ui.tableWidget->setItem(row, 5, new QTableWidgetItem(wnd.caption));
     }
 
     ui.label_Title->setText(tr("A&ctive Windows: (All %1)").arg(allWnds.size()));
-    ui.group_function->setEnabled(false);
-    on_tableWidget_currentCellChanged(-1, -1, -1, -1);
+    ui.tableWidget->clearSelection();
 }
 
 // 注册热键
@@ -347,10 +415,10 @@ bool MainDialog::setupHotKey(QKeySequence key) {
     connect(shortcut, &QxtGlobalShortcut::activated, [=]() {
 
         foreach (Wnd wnd, Global::WindowsList) {
-            if (wnd.setting.actionhk == WndBKType::NO_ACTION || wnd.setting.hotkey != key) 
+            if (wnd.setting.wndAction == WndBKType::NO_ACTION || wnd.setting.hotkey != key) 
                 continue;
 
-            if (wnd.setting.actionhk == WndBKType::SHOW_STATUSBAR_ICON) {
+            if (wnd.setting.wndAction == WndBKType::SHOW_STATUSBAR_ICON) {
                 bool isShowing = !IsIconic(wnd.hnd);
                 if (wnd.setting.needActive && wnd.hnd != GetForegroundWindow()) 
                     continue;
@@ -365,7 +433,7 @@ bool MainDialog::setupHotKey(QKeySequence key) {
                 else
                     Utils::RestoreWindow(wnd.hnd);
             }
-            else if (wnd.setting.actionhk == WndBKType::HIDE_STATUSBAR_ICON) {
+            else if (wnd.setting.wndAction == WndBKType::HIDE_STATUSBAR_ICON) {
                 bool isShowing = IsWindowVisible(wnd.hnd);
                 if (isShowing && wnd.setting.needActive && wnd.hnd != GetForegroundWindow()) 
                     continue;
@@ -391,7 +459,7 @@ void MainDialog::unSetupHotKey(QKeySequence key) {
     for (auto iter = Global::shortcuts.begin(); iter != Global::shortcuts.end();) {
         QxtGlobalShortcut *sc = *iter;
         if (sc->shortcut() == key) {
-            disconnect(sc);
+            sc->disconnect();
             Global::shortcuts.erase(iter);
             delete sc;
         }
@@ -404,10 +472,11 @@ void MainDialog::unSetupHotKey(QKeySequence key) {
 void MainDialog::unSetupAllHotKey() {
     for (auto iter = Global::shortcuts.begin(); iter != Global::shortcuts.end();) {
         QxtGlobalShortcut *sc = *iter;
-        disconnect(sc);
+        sc->disconnect();
         Global::shortcuts.erase(iter);
         delete sc;
     }
+    ui.checkBox_WheelAll->setChecked(false);
 }
 
 // 检查所有窗口是否被隐藏
@@ -415,7 +484,7 @@ void MainDialog::unSetupAllHotKey() {
 bool MainDialog::toContinue(QString title, QString msg) {
     bool has = false;
     foreach (Wnd wnd, Global::WindowsList) {
-        if (wnd.setting.actionhk ==  WndBKType::HIDE_STATUSBAR_ICON && // 窗口操作为隐藏图标
+        if (wnd.setting.wndAction ==  WndBKType::HIDE_STATUSBAR_ICON && // 窗口操作为隐藏图标
             IsWindow(wnd.hnd) && !IsWindowVisible(wnd.hnd)) // 窗口存在并且被隐藏
             has = true;
     }
@@ -436,7 +505,7 @@ bool MainDialog::toContinue(QString title, QString msg) {
     
     // 刷新后操作, True
     unSetupAllHotKey();
-    on_pushButton_ShowAllWindowsHidden_clicked();
+    on_pushButton_ShowHidden_clicked();
     return true;
 }
 

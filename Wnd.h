@@ -13,10 +13,11 @@ enum WndBKType {
 };
 
 struct WndSetting {
-    WndBKType actionhk;
+    WndBKType wndAction;
     QKeySequence hotkey;
     bool needActive;
     bool needMute;
+    bool wheelFunction;
 };
 
 class Wnd {
@@ -25,22 +26,18 @@ public:
     QString caption;
     int pid;
     QString image;
-    WndSetting setting;
-
-    Wnd(HWND hnd, QString caption, int pid, QString image) : hnd(hnd), caption(caption), pid(pid), image(image) {
-        setting.actionhk = WndBKType::NO_ACTION;
-        setting.hotkey = QKeySequence::NoMatch;
-        setting.needActive = setting.needMute = false;
-    }
 
     QString hndString() {
         return QString("0x%1").arg(QString("%1").arg((int) hnd, 6, 16, QLatin1Char('0')).toUpper());
     }
 
-    QString toQString() {
-        QString itemstr = QString("%1 %2 %3 \"%4\"")
-            .arg(hndString()).arg(pid).arg(image).arg(caption);
-        return itemstr;
+    WndSetting setting;
+
+    Wnd(HWND hnd, QString caption, int pid, QString image) : hnd(hnd), caption(caption), pid(pid), image(image) {
+        setting.wndAction = WndBKType::NO_ACTION;
+        setting.hotkey = QKeySequence::NoMatch;
+        setting.needActive = setting.needMute = false;
+        setting.wheelFunction = false;
     }
 };
 

@@ -6,13 +6,13 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>350</width>
-    <height>545</height>
+    <width>368</width>
+    <height>632</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>350</width>
+    <width>0</width>
     <height>0</height>
    </size>
   </property>
@@ -25,7 +25,7 @@
    <string>BossKey Manager</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QVBoxLayout" name="verticalLayout_3">
+   <layout class="QVBoxLayout" name="verticalLayout_4">
     <item>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
@@ -51,13 +51,6 @@
         </property>
        </spacer>
       </item>
-      <item>
-       <widget class="QPushButton" name="pushButton_Refresh">
-        <property name="text">
-         <string>&amp;Refresh</string>
-        </property>
-       </widget>
-      </item>
      </layout>
     </item>
     <item>
@@ -67,6 +60,12 @@
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>350</width>
+        <height>0</height>
+       </size>
       </property>
       <property name="editTriggers">
        <set>QAbstractItemView::NoEditTriggers</set>
@@ -96,7 +95,7 @@
        <bool>true</bool>
       </attribute>
       <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>60</number>
+       <number>50</number>
       </attribute>
       <attribute name="horizontalHeaderHighlightSections">
        <bool>false</bool>
@@ -134,6 +133,16 @@
       </column>
       <column>
        <property name="text">
+        <string>K</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>W</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
         <string>Pid</string>
        </property>
       </column>
@@ -150,260 +159,275 @@
      </widget>
     </item>
     <item>
-     <widget class="QGroupBox" name="groupBox">
+     <widget class="QGroupBox" name="groupBox_Window">
+      <property name="title">
+       <string>Current Window</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_CaptionHint">
+           <property name="text">
+            <string>Caption:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_Caption">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>1</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>23</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>xxxxxx</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_ProcessHint">
+           <property name="text">
+            <string>Process:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <layout class="QHBoxLayout" name="horizontalLayout_4">
+           <property name="spacing">
+            <number>6</number>
+           </property>
+           <item>
+            <widget class="QLabel" name="label_Process">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>1</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>23</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>xxxxxx</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="pushButton_Show">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>85</width>
+               <height>23</height>
+              </size>
+             </property>
+             <property name="text">
+              <string>Sho&amp;w</string>
+             </property>
+             <property name="popupMode">
+              <enum>QToolButton::MenuButtonPopup</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="Line" name="line">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox_Key">
       <property name="enabled">
        <bool>true</bool>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
       </property>
       <property name="title">
        <string>Key Setting</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout">
-       <property name="topMargin">
-        <number>5</number>
-       </property>
        <item>
-        <widget class="QCheckBox" name="checkBox_KeyAsWheel">
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_ActionHint">
+           <property name="text">
+            <string>Ac&amp;tion: </string>
+           </property>
+           <property name="buddy">
+            <cstring>comboBox_Action</cstring>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QComboBox" name="comboBox_Action">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>1</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>130</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>16777215</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <kerning>true</kerning>
+            </font>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="HotKeyEdit" name="hotKeyEdit">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+             <horstretch>1</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>130</width>
+             <height>0</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>16777215</height>
+            </size>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_HotkeyHint">
+           <property name="text">
+            <string>Hot&amp;key: </string>
+           </property>
+           <property name="buddy">
+            <cstring>hotKeyEdit</cstring>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_NeedActive">
          <property name="text">
-          <string>Set up/down key as &amp;wheel up/down</string>
+          <string>&amp;Need to be active</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="Line" name="line_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
+        <widget class="QCheckBox" name="checkBox_NeedMute">
+         <property name="text">
+          <string>Set volume &amp;mute</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QWidget" name="group_function" native="true">
-         <layout class="QVBoxLayout" name="verticalLayout_2">
-          <property name="spacing">
-           <number>6</number>
-          </property>
-          <property name="leftMargin">
-           <number>0</number>
-          </property>
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="rightMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_5">
-            <item>
-             <widget class="QLabel" name="label_2">
-              <property name="text">
-               <string>Caption:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_Caption">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>1</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>23</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>xxxxxx</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_4">
-            <item>
-             <widget class="QLabel" name="label">
-              <property name="text">
-               <string>Process:</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="label_Process">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>1</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>0</width>
-                <height>23</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>xxxxxx</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QToolButton" name="pushButton_Show">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Maximum">
-                <horstretch>0</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>75</width>
-                <height>23</height>
-               </size>
-              </property>
-              <property name="text">
-               <string>Sho&amp;w</string>
-              </property>
-              <property name="popupMode">
-               <enum>QToolButton::MenuButtonPopup</enum>
-              </property>
-              <property name="toolButtonStyle">
-               <enum>Qt::ToolButtonTextOnly</enum>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <widget class="Line" name="line">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <layout class="QGridLayout" name="gridLayout">
-            <item row="0" column="0">
-             <widget class="QLabel" name="label_4">
-              <property name="text">
-               <string>Ac&amp;tion: </string>
-              </property>
-              <property name="buddy">
-               <cstring>comboBox_Action</cstring>
-              </property>
-             </widget>
-            </item>
-            <item row="0" column="1">
-             <widget class="QComboBox" name="comboBox_Action">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>1</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>130</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>16777215</height>
-               </size>
-              </property>
-              <property name="font">
-               <font>
-                <kerning>true</kerning>
-               </font>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="0">
-             <widget class="QLabel" name="label_3">
-              <property name="text">
-               <string>Hot&amp;Key: </string>
-              </property>
-              <property name="buddy">
-               <cstring>hotKeyEdit</cstring>
-              </property>
-             </widget>
-            </item>
-            <item row="1" column="1">
-             <widget class="HotKeyEdit" name="hotKeyEdit">
-              <property name="sizePolicy">
-               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                <horstretch>1</horstretch>
-                <verstretch>0</verstretch>
-               </sizepolicy>
-              </property>
-              <property name="minimumSize">
-               <size>
-                <width>130</width>
-                <height>0</height>
-               </size>
-              </property>
-              <property name="maximumSize">
-               <size>
-                <width>16777215</width>
-                <height>16777215</height>
-               </size>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="checkBox_ActiveToHide">
-            <property name="text">
-             <string>&amp;Need to be active </string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <widget class="QCheckBox" name="checkBox_Mute">
-            <property name="text">
-             <string>Set volume &amp;mute</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <layout class="QHBoxLayout" name="horizontalLayout_3">
-            <item>
-             <spacer name="horizontalSpacer_3">
-              <property name="orientation">
-               <enum>Qt::Horizontal</enum>
-              </property>
-              <property name="sizeHint" stdset="0">
-               <size>
-                <width>40</width>
-                <height>20</height>
-               </size>
-              </property>
-             </spacer>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_Setup">
-              <property name="text">
-               <string>&amp;Setup</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="pushButton_Delete">
-              <property name="text">
-               <string>&amp;Delete</string>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
+        <layout class="QHBoxLayout" name="horizontalLayout_3">
+         <item>
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_Setup">
+           <property name="text">
+            <string>&amp;Setup Key</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_Delete">
+           <property name="text">
+            <string>&amp;Delete Key</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+      <zorder>pushButton_Show</zorder>
+      <zorder></zorder>
+      <zorder>checkBox_NeedActive</zorder>
+      <zorder></zorder>
+      <zorder>horizontalSpacer_4</zorder>
+      <zorder>label_CaptionHint</zorder>
+      <zorder>label_Caption</zorder>
+      <zorder>label_ProcessHint</zorder>
+      <zorder>label_Process</zorder>
+      <zorder>checkBox_NeedMute</zorder>
+      <zorder>label_HotkeyHint</zorder>
+      <zorder>hotKeyEdit</zorder>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBox_Wheel">
+      <property name="title">
+       <string>Wheel Setting</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QCheckBox" name="checkBox_WheelAll">
+         <property name="toolTip">
+          <string/>
+         </property>
+         <property name="text">
+          <string>Set up/down key as wheel up/down in all windows</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox_WheelSelf">
+         <property name="text">
+          <string>Just set up wheel function in this window</string>
+         </property>
         </widget>
        </item>
       </layout>
@@ -425,7 +449,14 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_ShowAllWindowsHidden">
+       <widget class="QPushButton" name="pushButton_Refresh">
+        <property name="text">
+         <string>&amp;Refresh</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_ShowHidden">
         <property name="text">
          <string>Show &amp;Hidden</string>
         </property>
@@ -441,9 +472,17 @@
      </layout>
     </item>
    </layout>
-   <zorder>groupBox</zorder>
    <zorder></zorder>
    <zorder>tableWidget</zorder>
+   <zorder>label_ActionHint</zorder>
+   <zorder>comboBox_Action</zorder>
+   <zorder>label_HotkeyHint</zorder>
+   <zorder>hotKeyEdit</zorder>
+   <zorder>groupBox_Key</zorder>
+   <zorder>pushButton_Show</zorder>
+   <zorder>groupBox_Wheel</zorder>
+   <zorder>groupBox_Window</zorder>
+   <zorder>line</zorder>
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
@@ -455,13 +494,18 @@
   </customwidget>
  </customwidgets>
  <tabstops>
-  <tabstop>pushButton_Refresh</tabstop>
   <tabstop>tableWidget</tabstop>
   <tabstop>pushButton_Show</tabstop>
   <tabstop>comboBox_Action</tabstop>
   <tabstop>hotKeyEdit</tabstop>
+  <tabstop>checkBox_NeedActive</tabstop>
+  <tabstop>checkBox_NeedMute</tabstop>
   <tabstop>pushButton_Setup</tabstop>
   <tabstop>pushButton_Delete</tabstop>
+  <tabstop>checkBox_WheelAll</tabstop>
+  <tabstop>checkBox_WheelSelf</tabstop>
+  <tabstop>pushButton_Refresh</tabstop>
+  <tabstop>pushButton_ShowHidden</tabstop>
   <tabstop>pushButton_Exit</tabstop>
  </tabstops>
  <resources/>
@@ -473,8 +517,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>339</x>
-     <y>504</y>
+     <x>357</x>
+     <y>621</y>
     </hint>
     <hint type="destinationlabel">
      <x>120</x>

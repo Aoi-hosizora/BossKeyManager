@@ -20,7 +20,7 @@ private slots:
     void on_tableWidget_itemDoubleClicked(QTableWidgetItem *);
     void on_tableWidget_currentCellChanged(int, int, int, int);
 
-    void on_pushButton_ShowAllWindowsHidden_clicked();
+    void on_pushButton_ShowHidden_clicked();
     void on_pushButton_Refresh_clicked();
     void on_pushButton_Show_clicked();
     void on_pushButton_Setup_clicked();
@@ -30,7 +30,8 @@ private slots:
     void on_action_Pin_triggered();
 
     void on_comboBox_Action_currentIndexChanged(int);
-    void on_checkBox_KeyAsWheel_stateChanged(int);
+    void on_checkBox_WheelAll_stateChanged(int);
+    void on_checkBox_WheelSelf_stateChanged(int);
 
     void closeEvent(QCloseEvent *) override;
 
@@ -46,13 +47,12 @@ private:
     void initData();
     void refreshList();
     void setEclipseLabel(QLabel *, QString);
-    void setCurrentTableWidgetRowBold(bool);
+    void setCurrentTableWidgetRowBold(bool, bool, bool = false);
     bool setupHotKey(QKeySequence);
     void unSetupHotKey(QKeySequence);
     void unSetupAllHotKey();
     bool toContinue(Wnd *, QString, QString);
     bool toContinue(QString, QString);
-
 };
 
 #endif // MAINDIALOG_H
